@@ -1,5 +1,6 @@
 "use client";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinner from "@/app/components/Spinner";
 import { createProviderSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -20,6 +21,7 @@ type ProviderForm = z.infer<typeof createProviderSchema>;
 
 const NewProviderPage = () => {
   const [error, setError] = useState("");
+  const [isSubmitting, setSubmitting] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -41,9 +43,11 @@ const NewProviderPage = () => {
         className="max-w-xl space-y-3"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setSubmitting(true);
             await axios.post("/api/providers", data);
             router.push("/providers");
           } catch (error) {
+            setSubmitting(false);
             setError("An unexpected error occurred");
           }
         })}
@@ -109,7 +113,10 @@ const NewProviderPage = () => {
           {...register("workingHours")}
         />
         <ErrorMessage>{errors.workingHours?.message}</ErrorMessage>
-        <Button>Submit</Button>
+        <Button disabled={isSubmitting}>
+          Submit
+          {isSubmitting && <Spinner />}
+        </Button>
       </form>
     </div>
   );
