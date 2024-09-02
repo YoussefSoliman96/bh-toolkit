@@ -19,8 +19,8 @@ model Provider {
   firstName                String
   lastName                 String
   gender                   Gender
-  evaluation               Int
-  followUp                 Int
+  evaluation               String   @default("30")
+  followUp                 String   @default("10")
   languages                String   @default("English")
   ageRange                 String
   workingHours             String

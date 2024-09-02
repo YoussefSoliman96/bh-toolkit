@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `provider` MODIFY `evaluation` VARCHAR(191) NOT NULL DEFAULT '30',
+    MODIFY `followUp` VARCHAR(191) NOT NULL DEFAULT '10';

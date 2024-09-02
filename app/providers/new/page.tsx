@@ -1,60 +1,95 @@
-import { Button, DropdownMenu, TextField } from "@radix-ui/themes";
+"use client";
+import { Button, DropdownMenu, Select, TextField } from "@radix-ui/themes";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { Controller, useForm } from "react-hook-form";
+
+export enum Title {
+  NP = "NP",
+  MD = "MD",
+  DNP = "DNP",
+  DO = "DO",
+}
+
+export enum Gender {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+}
+
+// Interface for creating a provider
+export interface CreateProviderForm {
+  firstName: string;
+  lastName: string;
+  title: Title;
+  gender: Gender;
+  evaluation: string; // Expected in minutes, e.g., 30
+  followUp: string; // Expected in minutes, e.g., 15
+  languages: string; // Array of languages the provider speaks
+  ageRange: string; // Example: "18-65"
+  workingHours: string; // Example: "08:00-16:00"
+}
 
 const NewProviderPage = () => {
+  const router = useRouter();
+  const { register, handleSubmit, control } = useForm<CreateProviderForm>();
+
   return (
-    <div className="max-w-xl space-y-3">
-      <TextField.Root placeholder="First Name">
-        <TextField.Slot></TextField.Slot>
-      </TextField.Root>
-      <TextField.Root placeholder="Last Name">
-        <TextField.Slot></TextField.Slot>
-      </TextField.Root>
+    <form
+      className="max-w-xl space-y-3"
+      onSubmit={handleSubmit(async (data) => {
+        await axios.post("/api/providers", data);
+        router.push("/providers");
+      })}
+    >
+      <TextField.Root placeholder="First Name" {...register("firstName")} />
+      <TextField.Root placeholder="Last Name" {...register("lastName")} />
       <div>
-        <DropdownMenu.Root>
-          <DropdownMenu.Trigger>
-            <Button variant="soft">
-              Title
-              <DropdownMenu.TriggerIcon />
-            </Button>
-          </DropdownMenu.Trigger>
-          <DropdownMenu.Content>
-            <DropdownMenu.Item>NP</DropdownMenu.Item>
-            <DropdownMenu.Item>MD</DropdownMenu.Item>
-            <DropdownMenu.Item>DNP</DropdownMenu.Item>
-            <DropdownMenu.Item>DO</DropdownMenu.Item>
-          </DropdownMenu.Content>
-        </DropdownMenu.Root>
+        <Controller
+          name="title"
+          control={control}
+          render={({ field }) => (
+            <Select.Root size="2" onValueChange={field.onChange}>
+              <Select.Trigger placeholder="Title" />
+              <Select.Content>
+                <Select.Group>
+                  <Select.Label>Title</Select.Label>
+                  <Select.Item value="NP">NP</Select.Item>
+                  <Select.Item value="MD">MD</Select.Item>
+                  <Select.Item value="DNP">DNP</Select.Item>
+                  <Select.Item value="DO">DO</Select.Item>
+                </Select.Group>
+              </Select.Content>
+            </Select.Root>
+          )}
+        ></Controller>
       </div>
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Button variant="soft">
-            Gender
-            <DropdownMenu.TriggerIcon />
-          </Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content>
-          <DropdownMenu.Item>Male</DropdownMenu.Item>
-          <DropdownMenu.Item>Female</DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-      <TextField.Root placeholder="Evaluation">
-        <TextField.Slot></TextField.Slot>
-      </TextField.Root>
-      <TextField.Root placeholder="Follow Up">
-        <TextField.Slot></TextField.Slot>
-      </TextField.Root>
-      <TextField.Root placeholder="Languages">
-        <TextField.Slot></TextField.Slot>
-      </TextField.Root>
-      <TextField.Root placeholder="Age range">
-        <TextField.Slot></TextField.Slot>
-      </TextField.Root>
-      <TextField.Root placeholder="Working hours">
-        <TextField.Slot></TextField.Slot>
-      </TextField.Root>
+      <Controller
+        name="gender"
+        control={control}
+        render={({ field }) => (
+          <Select.Root size="2" onValueChange={field.onChange}>
+            <Select.Trigger placeholder="Gender" />
+            <Select.Content>
+              <Select.Group>
+                <Select.Label>Gender</Select.Label>
+                <Select.Item value="MALE">Male</Select.Item>
+                <Select.Item value="FEMALE">Female</Select.Item>
+              </Select.Group>
+            </Select.Content>
+          </Select.Root>
+        )}
+      ></Controller>
+      <TextField.Root placeholder="Evaluation" {...register("evaluation")} />
+      <TextField.Root placeholder="Follow Up" {...register("followUp")} />
+      <TextField.Root placeholder="Languages" {...register("languages")} />
+      <TextField.Root placeholder="Age range" {...register("ageRange")} />
+      <TextField.Root
+        placeholder="Working hours"
+        {...register("workingHours")}
+      />
       <Button>Submit</Button>
-    </div>
+    </form>
   );
 };
 

@@ -10,8 +10,8 @@ const createProviderSchema = z.object({
   lastName: z.string().min(1, { message: "Last name is required" }),
   title: ProviderTitleEnum,
   gender: GenderEnum,
-  evaluation: z.number().min(5).max(60),
-  followUp: z.number().min(5).max(60),
+  evaluation: z.string().min(1).max(60),
+  followUp: z.string().min(1).max(60),
   ageRange: z.string().min(1, { message: "Age range is required" }),
   workingHours: z.string().min(1, { message: "Working hours are required" }),
 });
