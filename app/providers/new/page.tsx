@@ -1,4 +1,5 @@
 "use client";
+import ErrorMessage from "@/app/components/ErrorMessage";
 import { createProviderSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -16,31 +17,6 @@ import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 type ProviderForm = z.infer<typeof createProviderSchema>;
-
-// export enum Title {
-//   NP = "NP",
-//   MD = "MD",
-//   DNP = "DNP",
-//   DO = "DO",
-// }
-
-// export enum Gender {
-//   MALE = "MALE",
-//   FEMALE = "FEMALE",
-// }
-
-// Interface for creating a provider
-// export interface CreateProviderForm {
-//   firstName: string;
-//   lastName: string;
-//   title: Title;
-//   gender: Gender;
-//   evaluation: string; // Expected in minutes, e.g., 30
-//   followUp: string; // Expected in minutes, e.g., 15
-//   languages: string; // Array of languages the provider speaks
-//   ageRange: string; // Example: "18-65"
-//   workingHours: string; // Example: "08:00-16:00"
-// }
 
 const NewProviderPage = () => {
   const [error, setError] = useState("");
@@ -73,17 +49,10 @@ const NewProviderPage = () => {
         })}
       >
         <TextField.Root placeholder="First Name" {...register("firstName")} />
-        {errors.firstName && (
-          <Text color="red" as="p">
-            {errors.firstName.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.firstName?.message}</ErrorMessage>
+
         <TextField.Root placeholder="Last Name" {...register("lastName")} />
-        {errors.lastName && (
-          <Text color="red" as="p">
-            {errors.lastName.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.lastName?.message}</ErrorMessage>
         <div>
           <Controller
             name="title"
@@ -103,11 +72,7 @@ const NewProviderPage = () => {
               </Select.Root>
             )}
           ></Controller>
-          {errors.title && (
-            <Text color="red" as="p">
-              {errors.title.message}
-            </Text>
-          )}
+          <ErrorMessage>{errors.title?.message}</ErrorMessage>
         </div>
         <Controller
           name="gender"
@@ -125,44 +90,25 @@ const NewProviderPage = () => {
             </Select.Root>
           )}
         ></Controller>
-        {errors.gender && (
-          <Text color="red" as="p">
-            {errors.gender.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.gender?.message}</ErrorMessage>
+
         <TextField.Root placeholder="Evaluation" {...register("evaluation")} />
-        {errors.evaluation && (
-          <Text color="red" as="p">
-            {errors.evaluation.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.evaluation?.message}</ErrorMessage>
+
         <TextField.Root placeholder="Follow Up" {...register("followUp")} />
-        {errors.followUp && (
-          <Text color="red" as="p">
-            {errors.followUp.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.followUp?.message}</ErrorMessage>
+
         <TextField.Root placeholder="Languages" {...register("languages")} />
-        {errors.languages && (
-          <Text color="red" as="p">
-            {errors.languages.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.languages?.message}</ErrorMessage>
+
         <TextField.Root placeholder="Age range" {...register("ageRange")} />
-        {errors.ageRange && (
-          <Text color="red" as="p">
-            {errors.ageRange.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.ageRange?.message}</ErrorMessage>
+
         <TextField.Root
           placeholder="Working hours"
           {...register("workingHours")}
         />
-        {errors.workingHours && (
-          <Text color="red" as="p">
-            {errors.workingHours.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.workingHours?.message}</ErrorMessage>
         <Button>Submit</Button>
       </form>
     </div>
