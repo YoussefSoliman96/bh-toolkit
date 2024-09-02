@@ -1,45 +1,58 @@
 "use client";
+import { createProviderSchema } from "@/app/validationSchemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
   Callout,
   DropdownMenu,
   Select,
+  Text,
   TextField,
 } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
 
-export enum Title {
-  NP = "NP",
-  MD = "MD",
-  DNP = "DNP",
-  DO = "DO",
-}
+type ProviderForm = z.infer<typeof createProviderSchema>;
 
-export enum Gender {
-  MALE = "MALE",
-  FEMALE = "FEMALE",
-}
+// export enum Title {
+//   NP = "NP",
+//   MD = "MD",
+//   DNP = "DNP",
+//   DO = "DO",
+// }
+
+// export enum Gender {
+//   MALE = "MALE",
+//   FEMALE = "FEMALE",
+// }
 
 // Interface for creating a provider
-export interface CreateProviderForm {
-  firstName: string;
-  lastName: string;
-  title: Title;
-  gender: Gender;
-  evaluation: string; // Expected in minutes, e.g., 30
-  followUp: string; // Expected in minutes, e.g., 15
-  languages: string; // Array of languages the provider speaks
-  ageRange: string; // Example: "18-65"
-  workingHours: string; // Example: "08:00-16:00"
-}
+// export interface CreateProviderForm {
+//   firstName: string;
+//   lastName: string;
+//   title: Title;
+//   gender: Gender;
+//   evaluation: string; // Expected in minutes, e.g., 30
+//   followUp: string; // Expected in minutes, e.g., 15
+//   languages: string; // Array of languages the provider speaks
+//   ageRange: string; // Example: "18-65"
+//   workingHours: string; // Example: "08:00-16:00"
+// }
 
 const NewProviderPage = () => {
   const [error, setError] = useState("");
   const router = useRouter();
-  const { register, handleSubmit, control } = useForm<CreateProviderForm>();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<ProviderForm>({
+    resolver: zodResolver(createProviderSchema),
+  });
 
   return (
     <div className="max-w-xl ">
@@ -60,7 +73,17 @@ const NewProviderPage = () => {
         })}
       >
         <TextField.Root placeholder="First Name" {...register("firstName")} />
+        {errors.firstName && (
+          <Text color="red" as="p">
+            {errors.firstName.message}
+          </Text>
+        )}
         <TextField.Root placeholder="Last Name" {...register("lastName")} />
+        {errors.lastName && (
+          <Text color="red" as="p">
+            {errors.lastName.message}
+          </Text>
+        )}
         <div>
           <Controller
             name="title"
@@ -80,6 +103,11 @@ const NewProviderPage = () => {
               </Select.Root>
             )}
           ></Controller>
+          {errors.title && (
+            <Text color="red" as="p">
+              {errors.title.message}
+            </Text>
+          )}
         </div>
         <Controller
           name="gender"
@@ -97,14 +125,44 @@ const NewProviderPage = () => {
             </Select.Root>
           )}
         ></Controller>
+        {errors.gender && (
+          <Text color="red" as="p">
+            {errors.gender.message}
+          </Text>
+        )}
         <TextField.Root placeholder="Evaluation" {...register("evaluation")} />
+        {errors.evaluation && (
+          <Text color="red" as="p">
+            {errors.evaluation.message}
+          </Text>
+        )}
         <TextField.Root placeholder="Follow Up" {...register("followUp")} />
+        {errors.followUp && (
+          <Text color="red" as="p">
+            {errors.followUp.message}
+          </Text>
+        )}
         <TextField.Root placeholder="Languages" {...register("languages")} />
+        {errors.languages && (
+          <Text color="red" as="p">
+            {errors.languages.message}
+          </Text>
+        )}
         <TextField.Root placeholder="Age range" {...register("ageRange")} />
+        {errors.ageRange && (
+          <Text color="red" as="p">
+            {errors.ageRange.message}
+          </Text>
+        )}
         <TextField.Root
           placeholder="Working hours"
           {...register("workingHours")}
         />
+        {errors.workingHours && (
+          <Text color="red" as="p">
+            {errors.workingHours.message}
+          </Text>
+        )}
         <Button>Submit</Button>
       </form>
     </div>
