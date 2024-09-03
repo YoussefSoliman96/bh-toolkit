@@ -31,6 +31,16 @@ const NewProviderPage = () => {
   } = useForm<ProviderForm>({
     resolver: zodResolver(createProviderSchema),
   });
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setSubmitting(true);
+      await axios.post("/api/providers", data);
+      router.push("/providers");
+    } catch (error) {
+      setSubmitting(false);
+      setError("An unexpected error occurred");
+    }
+  });
 
   return (
     <div className="max-w-xl ">
@@ -39,19 +49,7 @@ const NewProviderPage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form
-        className="max-w-xl space-y-3"
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            setSubmitting(true);
-            await axios.post("/api/providers", data);
-            router.push("/providers");
-          } catch (error) {
-            setSubmitting(false);
-            setError("An unexpected error occurred");
-          }
-        })}
-      >
+      <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
         <TextField.Root placeholder="First Name" {...register("firstName")} />
         <ErrorMessage>{errors.firstName?.message}</ErrorMessage>
 
