@@ -7,8 +7,6 @@ interface Props {
 }
 
 const ProviderDetailPage = async ({ params }: Props) => {
-  if (typeof params.id !== "number") notFound();
-
   const provider = await prisma.provider.findUnique({
     where: {
       id: parseInt(params.id),
