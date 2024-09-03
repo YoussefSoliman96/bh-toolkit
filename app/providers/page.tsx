@@ -2,6 +2,7 @@ import prisma from "@/prisma/client";
 import { Button, Table } from "@radix-ui/themes";
 import React from "react";
 import ProviderActions from "./ProviderActions";
+import Link from "next/link";
 const ProvidersPage = async () => {
   const providers = await prisma.provider.findMany();
 
@@ -37,7 +38,9 @@ const ProvidersPage = async () => {
           {providers.map((provider) => (
             <Table.Row key={provider.id}>
               <Table.Cell>
-                {`${provider.title} ${provider.firstName} ${provider.lastName}`}
+                <Link href={`/providers/${provider.id}`}>
+                  {`${provider.title} ${provider.firstName} ${provider.lastName}`}
+                </Link>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 {provider.gender}
