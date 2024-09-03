@@ -1,4 +1,5 @@
 import prisma from "@/prisma/client";
+import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import React from "react";
 
@@ -16,14 +17,18 @@ const ProviderDetailPage = async ({ params }: Props) => {
   if (!provider) notFound();
   return (
     <div>
-      <p>
+      <Heading>
         {provider.title} {provider?.firstName} {provider.lastName}
-      </p>
-      <p>Evaluation: {provider.evaluation}</p>
-      <p>Follow up: {provider.followUp}</p>
-      <p>Languages: {provider.languages}</p>
-      <p>Age range: {provider.ageRange}</p>
-      <p>Working hours: {provider.workingHours}</p>
+      </Heading>
+      <Flex gap="9" my="2">
+        <Text>Evaluation: {provider.evaluation}</Text>
+        <Text>Follow up: {provider.followUp}</Text>
+      </Flex>
+      <Card>
+        <Text as="p">Languages: {provider.languages}</Text>
+        <Text as="p">Age range: {provider.ageRange}</Text>
+        <Text as="p">Working hours: {provider.workingHours}</Text>
+      </Card>
     </div>
   );
 };
