@@ -1,25 +1,13 @@
 import prisma from "@/prisma/client";
 import { Button, Table } from "@radix-ui/themes";
-import {
-  Header,
-  Row,
-  ColumnHeaderCell,
-  RowHeaderCell,
-  Cell,
-} from "@radix-ui/themes/src/components/table.jsx";
-import Link from "next/link";
-import { Root } from "postcss";
 import React from "react";
-
+import ProviderActions from "./ProviderActions";
 const ProvidersPage = async () => {
   const providers = await prisma.provider.findMany();
+
   return (
     <div>
-      <div className="mb-5">
-        <Button>
-          <Link href="/providers/new">New provider</Link>
-        </Button>
-      </div>
+      <ProviderActions />
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
