@@ -1,6 +1,5 @@
 "use client";
-import ErrorMessage from "@/app/components/ErrorMessage";
-import Spinner from "@/app/components/Spinner";
+import { ErrorMessage, Spinner } from "@/app/components";
 import { createProviderSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -13,7 +12,7 @@ import {
 } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
