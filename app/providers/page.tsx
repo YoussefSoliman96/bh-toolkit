@@ -2,7 +2,7 @@ import prisma from "@/prisma/client";
 import { Button, Table } from "@radix-ui/themes";
 import React from "react";
 import ProviderActions from "./ProviderActions";
-import Link from "next/link";
+import Link from "../components/Link";
 const ProvidersPage = async () => {
   const providers = await prisma.provider.findMany();
 
