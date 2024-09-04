@@ -31,7 +31,8 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setSubmitting(true);
-      await axios.post("/api/providers", data);
+      if (provider) await axios.patch("/api/providers/" + provider.id, data);
+      else await axios.post("/api/providers", data);
       router.push("/providers");
     } catch (error) {
       setSubmitting(false);
@@ -142,8 +143,7 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
         />
         <ErrorMessage>{errors.workingHours?.message}</ErrorMessage>
         <Button disabled={isSubmitting}>
-          Submit
-          {isSubmitting && <Spinner />}
+          {provider ? "Edit" : "Submit"} {isSubmitting && <Spinner />}
         </Button>
       </form>
     </div>
