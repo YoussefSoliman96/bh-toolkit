@@ -1,8 +1,9 @@
 import prisma from "@/prisma/client";
-import { Box, Grid } from "@radix-ui/themes";
+import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import EditProviderButton from "./EditProviderButton";
 import ProviderDetails from "./ProviderDetails";
+import DeleteProviderButton from "./DeleteProviderButton";
 
 interface Props {
   params: { id: string };
@@ -17,12 +18,15 @@ const ProviderDetailPage = async ({ params }: Props) => {
 
   if (!provider) notFound();
   return (
-    <Grid columns={{ initial: "1", md: "2" }} gap="5">
-      <Box>
+    <Grid columns={{ initial: "1", sm: "5" }} gap="5">
+      <Box className="md:col-span-4">
         <ProviderDetails provider={provider} />
       </Box>
       <Box>
-        <EditProviderButton providerId={provider.id} />
+        <Flex direction="column" gap="4">
+          <EditProviderButton providerId={provider.id} />
+          <DeleteProviderButton providerId={provider.id} />
+        </Flex>
       </Box>
     </Grid>
   );
