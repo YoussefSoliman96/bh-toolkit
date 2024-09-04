@@ -1,11 +1,11 @@
-import { createProviderSchema } from "@/app/validationSchemas";
+import { providerSchema } from "@/app/validationSchemas";
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const validation = createProviderSchema.safeParse(body);
+  const validation = providerSchema.safeParse(body);
   if (!validation.success)
     return NextResponse.json(
       { error: validation.error.errors },

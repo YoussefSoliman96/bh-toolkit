@@ -1,6 +1,6 @@
 "use client";
 import { ErrorMessage, Spinner } from "@/app/components";
-import { createProviderSchema } from "@/app/validationSchemas";
+import { providerSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Provider } from "@prisma/client";
 import { Button, Callout, Select, TextField } from "@radix-ui/themes";
@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
-type ProviderFormData = z.infer<typeof createProviderSchema>;
+type ProviderFormData = z.infer<typeof providerSchema>;
 
 interface Props {
   provider?: Provider;
@@ -26,7 +26,7 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
     control,
     formState: { errors },
   } = useForm<ProviderFormData>({
-    resolver: zodResolver(createProviderSchema),
+    resolver: zodResolver(providerSchema),
   });
   const onSubmit = handleSubmit(async (data) => {
     try {
