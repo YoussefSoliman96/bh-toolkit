@@ -24,7 +24,7 @@ const ProviderDetailPage = async ({ params }: Props) => {
         <Text>Evaluation: {provider.evaluation}</Text>
         <Text>Follow up: {provider.followUp}</Text>
       </Flex>
-      <Card>
+      <Card mt="4" className="max-w-md">
         <Text as="p">Languages: {provider.languages}</Text>
         <Text as="p">Age range: {provider.ageRange}</Text>
         <Text as="p">Working hours: {provider.workingHours}</Text>
