@@ -37,3 +37,16 @@ export async function PATCH(
   });
   return NextResponse.json(updatedProvider);
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const provider = await prisma.provider.findUnique({
+    where: { id: parseInt(params.id) },
+  });
+  if (!provider)
+    return NextResponse.json({ error: "Invalid Provider" }, { status: 404 });
+  await prisma.provider.delete({ where: { id: provider.id } });
+  return NextResponse.json({});
+}
