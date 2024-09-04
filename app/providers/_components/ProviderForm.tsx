@@ -34,6 +34,7 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
       if (provider) await axios.patch("/api/providers/" + provider.id, data);
       else await axios.post("/api/providers", data);
       router.push("/providers");
+      router.refresh();
     } catch (error) {
       setSubmitting(false);
       setError("An unexpected error occurred");
