@@ -1,9 +1,11 @@
 import prisma from "@/prisma/client";
-import { Table } from "@radix-ui/themes";
+import { Table, Flex, Button } from "@radix-ui/themes";
 import Link from "../../components/Link";
 import ProviderActions from "./ProviderActions";
 import { Role } from "@prisma/client";
-import ProviderRoleBadge from "../ProviderRoleBadge";
+import ProviderRoleBadge from "./ProviderRoleBadge";
+import { CopyIcon } from "@radix-ui/react-icons";
+import CopyButton from "./CopyButton";
 
 interface Props {
   searchParams: { role: Role };
@@ -82,7 +84,10 @@ const ProvidersPage = async ({ searchParams }: Props) => {
                 {provider.workingHours}
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                {provider.link}
+                <Flex gap="2">
+                  {provider.link}
+                  <CopyButton doxyLink={provider.link} />
+                </Flex>
               </Table.Cell>
             </Table.Row>
           ))}

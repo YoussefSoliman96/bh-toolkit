@@ -46,7 +46,7 @@ model Provider {
   traumaticBrainInjury     Boolean  @default(false)
   neurodegenerativeDisease Boolean  @default(false)
   minorsAfterSchool        Boolean  @default(false)
-  link                     String   @default("")
+  doxyLink                 String   @default("")
   createdAt                DateTime @default(now())
   updatedAt                DateTime @updatedAt
 }
