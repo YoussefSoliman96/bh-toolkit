@@ -16,6 +16,7 @@ datasource db {
 model Provider {
   id                       Int      @id @default(autoincrement())
   title                    Title
+  role                     Role
   firstName                String
   lastName                 String
   gender                   Gender
@@ -47,4 +48,10 @@ enum Title {
 enum Gender {
   MALE
   FEMALE
+}
+
+enum Role {
+  PSYCHIATRIST
+  THERAPIST
+  RESIDENCY
 }
