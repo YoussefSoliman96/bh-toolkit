@@ -8,10 +8,10 @@ interface Props {
 
 const roleMap: Record<
   Role,
-  { label: string; color: "red" | "violet" | "green" }
+  { label: string; color: "red" | "gold" | "green" }
 > = {
   PSYCHIATRIST: { label: "Psychiatrist", color: "green" },
-  THERAPIST: { label: "Therapist", color: "violet" },
+  THERAPIST: { label: "Therapist", color: "gold" },
   RESIDENCY: { label: "Residency", color: "red" },
 };
 

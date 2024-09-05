@@ -1,5 +1,5 @@
 import prisma from "@/prisma/client";
-import { Table, Flex, Button } from "@radix-ui/themes";
+import { Table, Flex, Button, Badge } from "@radix-ui/themes";
 import Link from "../../components/Link";
 import ProviderActions from "./ProviderActions";
 import { Role } from "@prisma/client";
@@ -84,8 +84,10 @@ const ProvidersPage = async ({ searchParams }: Props) => {
                 {provider.workingHours}
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <Flex gap="2">
-                  {provider.link}
+                <Flex gap="3" className="items-center">
+                  <Badge color="violet" size="2">
+                    {provider.link}
+                  </Badge>
                   <CopyButton doxyLink={provider.link} />
                 </Flex>
               </Table.Cell>
