@@ -6,7 +6,7 @@ const EditProviderButton = async ({ providerId }: { providerId: number }) => {
   return (
     <Button>
       <Pencil2Icon />
-      <Link href={`/providers/${providerId}/edit`}>Edit Provider</Link>
+      <Link href={`/providers/edit/${providerId}`}>Edit Provider</Link>
     </Button>
   );
 };

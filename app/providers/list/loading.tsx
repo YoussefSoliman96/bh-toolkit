@@ -1,5 +1,5 @@
 import { Table } from "@radix-ui/themes";
-import { Skeleton } from "../components";
+import { Skeleton } from "../../components";
 
 const LoadingProvidersPage = () => {
   const providers = [1, 2, 3, 4, 5];

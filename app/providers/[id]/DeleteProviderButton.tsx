@@ -13,7 +13,7 @@ const DeleteProviderButton = ({ providerId }: { providerId: number }) => {
     try {
       setDeleting(true);
       await axios.delete("/api/providers/" + providerId);
-      router.push("/providers");
+      router.push("/providers/list");
       router.refresh();
     } catch (error) {
       setDeleting(false);

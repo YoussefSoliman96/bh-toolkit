@@ -33,7 +33,7 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
       setSubmitting(true);
       if (provider) await axios.patch("/api/providers/" + provider.id, data);
       else await axios.post("/api/providers", data);
-      router.push("/providers");
+      router.push("/providers/list");
       router.refresh();
     } catch (error) {
       setSubmitting(false);
