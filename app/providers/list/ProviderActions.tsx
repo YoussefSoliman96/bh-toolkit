@@ -1,14 +1,16 @@
-import { Button } from "@radix-ui/themes";
+import { Button, Flex } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";
+import ProviderFilter from "./ProviderFilter";
 
 const ProviderActions = () => {
   return (
-    <div className="mb-5">
+    <Flex mb="5" justify="between">
+      <ProviderFilter />
       <Button>
         <Link href="/providers/new">New provider</Link>
       </Button>
-    </div>
+    </Flex>
   );
 };
 

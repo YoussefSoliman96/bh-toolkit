@@ -36,7 +36,7 @@ model Provider {
   followUp                 String   @default("10")
   languages                String   @default("English")
   ageRange                 String
-  workingHours             String
+  workingHours             String   @default("")
   suboxoneAddiction        Boolean  @default(false)
   adhd                     Boolean  @default(false)
   schizophreniaBipolar     Boolean  @default(false)
@@ -55,6 +55,11 @@ enum Title {
   MD
   DNP
   DO
+  AMFT
+  APCC
+  LCSW
+  PhD
+  PsyD
 }
 
 enum Gender {
