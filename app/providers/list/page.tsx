@@ -46,6 +46,9 @@ const ProvidersPage = async ({ searchParams }: Props) => {
             <Table.ColumnHeaderCell className="hidden md:table-cell">
               Working Hours
             </Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell className="hidden md:table-cell">
+              Link
+            </Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -77,6 +80,9 @@ const ProvidersPage = async ({ searchParams }: Props) => {
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 {provider.workingHours}
+              </Table.Cell>
+              <Table.Cell className="hidden md:table-cell">
+                {provider.link}
               </Table.Cell>
             </Table.Row>
           ))}

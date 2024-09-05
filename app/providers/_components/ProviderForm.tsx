@@ -80,6 +80,11 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
                     <Select.Item value="MD">MD</Select.Item>
                     <Select.Item value="DNP">DNP</Select.Item>
                     <Select.Item value="DO">DO</Select.Item>
+                    <Select.Item value="DO">AMFT</Select.Item>
+                    <Select.Item value="DO">APCC</Select.Item>
+                    <Select.Item value="DO">LCSW</Select.Item>
+                    <Select.Item value="DO">PhD</Select.Item>
+                    <Select.Item value="DO">PsyD</Select.Item>
                   </Select.Group>
                 </Select.Content>
               </Select.Root>
