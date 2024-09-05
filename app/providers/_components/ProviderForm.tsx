@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Provider } from "@prisma/client";
 import { Button, Callout, Select, TextField } from "@radix-ui/themes";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -17,6 +17,7 @@ interface Props {
 }
 
 const ProviderForm = ({ provider }: { provider?: Provider }) => {
+  const currentPath = usePathname();
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const router = useRouter();
@@ -62,81 +63,87 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
           {...register("lastName")}
         />
         <ErrorMessage>{errors.lastName?.message}</ErrorMessage>
-        <div>
-          <Controller
-            name="title"
-            control={control}
-            render={({ field }) => (
-              <Select.Root
-                size="2"
-                defaultValue={provider?.title}
-                onValueChange={field.onChange}
-              >
-                <Select.Trigger placeholder="Title" />
-                <Select.Content>
-                  <Select.Group>
-                    <Select.Label>Title</Select.Label>
-                    <Select.Item value="NP">NP</Select.Item>
-                    <Select.Item value="MD">MD</Select.Item>
-                    <Select.Item value="DNP">DNP</Select.Item>
-                    <Select.Item value="DO">DO</Select.Item>
-                    <Select.Item value="DO">AMFT</Select.Item>
-                    <Select.Item value="DO">APCC</Select.Item>
-                    <Select.Item value="DO">LCSW</Select.Item>
-                    <Select.Item value="DO">PhD</Select.Item>
-                    <Select.Item value="DO">PsyD</Select.Item>
-                  </Select.Group>
-                </Select.Content>
-              </Select.Root>
-            )}
-          ></Controller>
-          <ErrorMessage>{errors.title?.message}</ErrorMessage>
-        </div>
-        <div>
-          <Controller
-            name="role"
-            control={control}
-            render={({ field }) => (
-              <Select.Root
-                size="2"
-                defaultValue={provider?.role}
-                onValueChange={field.onChange}
-              >
-                <Select.Trigger placeholder="Role" />
-                <Select.Content>
-                  <Select.Group>
-                    <Select.Label>Title</Select.Label>
-                    <Select.Item value="PSYCHIATRIST">Psychiatrist</Select.Item>
-                    <Select.Item value="THERAPIST">Therapist</Select.Item>
-                    <Select.Item value="RESIDENCY">Residency</Select.Item>
-                  </Select.Group>
-                </Select.Content>
-              </Select.Root>
-            )}
-          ></Controller>
-          <ErrorMessage>{errors.title?.message}</ErrorMessage>
-        </div>
-        <Controller
-          name="gender"
-          control={control}
-          render={({ field }) => (
-            <Select.Root
-              size="2"
-              defaultValue={provider?.gender}
-              onValueChange={field.onChange}
-            >
-              <Select.Trigger placeholder="Gender" />
-              <Select.Content>
-                <Select.Group>
-                  <Select.Label>Gender</Select.Label>
-                  <Select.Item value="MALE">Male</Select.Item>
-                  <Select.Item value="FEMALE">Female</Select.Item>
-                </Select.Group>
-              </Select.Content>
-            </Select.Root>
-          )}
-        ></Controller>
-        <ErrorMessage>{errors.gender?.message}</ErrorMessage>
+        {currentPath.includes("new") && (
+          <>
+            <div>
+              <Controller
+                name="title"
+                control={control}
+                render={({ field }) => (
+                  <Select.Root
+                    size="2"
+                    defaultValue={provider?.title}
+                    onValueChange={field.onChange}
+                  >
+                    <Select.Trigger placeholder="Title" />
+                    <Select.Content>
+                      <Select.Group>
+                        <Select.Label>Title</Select.Label>
+                        <Select.Item value="NP">NP</Select.Item>
+                        <Select.Item value="MD">MD</Select.Item>
+                        <Select.Item value="DNP">DNP</Select.Item>
+                        <Select.Item value="DO">DO</Select.Item>
+                        <Select.Item value="DO">AMFT</Select.Item>
+                        <Select.Item value="DO">APCC</Select.Item>
+                        <Select.Item value="DO">LCSW</Select.Item>
+                        <Select.Item value="DO">PhD</Select.Item>
+                        <Select.Item value="DO">PsyD</Select.Item>
+                      </Select.Group>
+                    </Select.Content>
+                  </Select.Root>
+                )}
+              ></Controller>
+              <ErrorMessage>{errors.title?.message}</ErrorMessage>
+            </div>
+            <div>
+              <Controller
+                name="role"
+                control={control}
+                render={({ field }) => (
+                  <Select.Root
+                    size="2"
+                    defaultValue={provider?.role}
+                    onValueChange={field.onChange}
+                  >
+                    <Select.Trigger placeholder="Role" />
+                    <Select.Content>
+                      <Select.Group>
+                        <Select.Label>Title</Select.Label>
+                        <Select.Item value="PSYCHIATRIST">
+                          Psychiatrist
+                        </Select.Item>
+                        <Select.Item value="THERAPIST">Therapist</Select.Item>
+                        <Select.Item value="RESIDENCY">Residency</Select.Item>
+                      </Select.Group>
+                    </Select.Content>
+                  </Select.Root>
+                )}
+              ></Controller>
+              <ErrorMessage>{errors.title?.message}</ErrorMessage>
+            </div>
+            <Controller
+              name="gender"
+              control={control}
+              render={({ field }) => (
+                <Select.Root
+                  size="2"
+                  defaultValue={provider?.gender}
+                  onValueChange={field.onChange}
+                >
+                  <Select.Trigger placeholder="Gender" />
+                  <Select.Content>
+                    <Select.Group>
+                      <Select.Label>Gender</Select.Label>
+                      <Select.Item value="MALE">Male</Select.Item>
+                      <Select.Item value="FEMALE">Female</Select.Item>
+                    </Select.Group>
+                  </Select.Content>
+                </Select.Root>
+              )}
+            ></Controller>
+            <ErrorMessage>{errors.gender?.message}</ErrorMessage>
+          </>
+        )}
 
         <TextField.Root
           defaultValue={provider?.evaluation}
