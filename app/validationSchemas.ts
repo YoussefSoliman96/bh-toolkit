@@ -1,6 +1,16 @@
 import { z } from "zod";
 
-const ProviderTitleEnum = z.enum(["NP", "MD", "DNP", "DO"]);
+const ProviderTitleEnum = z.enum([
+  "NP",
+  "MD",
+  "DNP",
+  "DO",
+  "AMFT",
+  "APCC",
+  "LCSW",
+  "PhD",
+  "PsyD",
+]);
 const GenderEnum = z.enum(["MALE", "FEMALE"]);
 const RoleEnum = z.enum(["PSYCHIATRIST", "THERAPIST", "RESIDENCY"]);
 
