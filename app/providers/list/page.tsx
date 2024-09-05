@@ -2,13 +2,20 @@ import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
 import Link from "../../components/Link";
 import ProviderActions from "./ProviderActions";
+import { Role } from "@prisma/client";
 
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+interface Props {
+  searchParams: { role: Role };
 }
 
-const ProvidersPage = async () => {
-  const providers = await prisma.provider.findMany();
+const ProvidersPage = async ({ searchParams }: Props) => {
+  const roles = Object.values(Role);
+  const role = roles.includes(searchParams.role)
+    ? searchParams.role
+    : undefined;
+  const providers = await prisma.provider.findMany({
+    where: { role },
+  });
 
   return (
     <div>
@@ -75,3 +82,7 @@ const ProvidersPage = async () => {
 export const dynamic = "force-dynamic";
 
 export default ProvidersPage;
+
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
