@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `provider` ADD COLUMN `link` VARCHAR(191) NOT NULL DEFAULT '';
