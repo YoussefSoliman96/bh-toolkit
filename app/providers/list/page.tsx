@@ -2,6 +2,11 @@ import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
 import Link from "../../components/Link";
 import ProviderActions from "./ProviderActions";
+
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 const ProvidersPage = async () => {
   const providers = await prisma.provider.findMany();
 
@@ -42,7 +47,7 @@ const ProvidersPage = async () => {
                 </Link>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                {provider.gender}
+                {capitalizeFirstLetter(provider.gender.toLocaleLowerCase())}
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 {provider.evaluation}

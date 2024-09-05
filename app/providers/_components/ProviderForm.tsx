@@ -87,6 +87,30 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
           ></Controller>
           <ErrorMessage>{errors.title?.message}</ErrorMessage>
         </div>
+        <div>
+          <Controller
+            name="role"
+            control={control}
+            render={({ field }) => (
+              <Select.Root
+                size="2"
+                defaultValue={provider?.role}
+                onValueChange={field.onChange}
+              >
+                <Select.Trigger placeholder="Role" />
+                <Select.Content>
+                  <Select.Group>
+                    <Select.Label>Title</Select.Label>
+                    <Select.Item value="PSYCHIATRIST">Psychiatrist</Select.Item>
+                    <Select.Item value="THERAPIST">Therapist</Select.Item>
+                    <Select.Item value="RESIDENCY">Residency</Select.Item>
+                  </Select.Group>
+                </Select.Content>
+              </Select.Root>
+            )}
+          ></Controller>
+          <ErrorMessage>{errors.title?.message}</ErrorMessage>
+        </div>
         <Controller
           name="gender"
           control={control}
