@@ -3,6 +3,7 @@ import { Table } from "@radix-ui/themes";
 import Link from "../../components/Link";
 import ProviderActions from "./ProviderActions";
 import { Role } from "@prisma/client";
+import ProviderRoleBadge from "../ProviderRoleBadge";
 
 interface Props {
   searchParams: { role: Role };
@@ -24,6 +25,9 @@ const ProvidersPage = async ({ searchParams }: Props) => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell className="hidden md:table-cell">
+              Role
+            </Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
               Gender
             </Table.ColumnHeaderCell>
@@ -52,6 +56,9 @@ const ProvidersPage = async ({ searchParams }: Props) => {
                 <Link href={`/providers/${provider.id}`}>
                   {`${provider.title} ${provider.firstName} ${provider.lastName}`}
                 </Link>
+              </Table.Cell>
+              <Table.Cell className="hidden md:table-cell">
+                <ProviderRoleBadge role={provider.role} />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 {capitalizeFirstLetter(provider.gender.toLocaleLowerCase())}
