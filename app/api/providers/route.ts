@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
       followUp: body.followUp,
       ageRange: body.ageRange,
       workingHours: body.workingHours,
+      role: body.role,
     },
   });
 

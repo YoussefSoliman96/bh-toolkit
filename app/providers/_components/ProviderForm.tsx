@@ -12,10 +12,6 @@ import { z } from "zod";
 
 type ProviderFormData = z.infer<typeof providerSchema>;
 
-interface Props {
-  provider?: Provider;
-}
-
 const ProviderForm = ({ provider }: { provider?: Provider }) => {
   const currentPath = usePathname();
   const [error, setError] = useState("");
@@ -63,87 +59,86 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
           {...register("lastName")}
         />
         <ErrorMessage>{errors.lastName?.message}</ErrorMessage>
-        {currentPath.includes("new") && (
-          <>
-            <div>
-              <Controller
-                name="title"
-                control={control}
-                render={({ field }) => (
-                  <Select.Root
-                    size="2"
-                    defaultValue={provider?.title}
-                    onValueChange={field.onChange}
-                  >
-                    <Select.Trigger placeholder="Title" />
-                    <Select.Content>
-                      <Select.Group>
-                        <Select.Label>Title</Select.Label>
-                        <Select.Item value="NP">NP</Select.Item>
-                        <Select.Item value="MD">MD</Select.Item>
-                        <Select.Item value="DNP">DNP</Select.Item>
-                        <Select.Item value="DO">DO</Select.Item>
-                        <Select.Item value="DO">AMFT</Select.Item>
-                        <Select.Item value="DO">APCC</Select.Item>
-                        <Select.Item value="DO">LCSW</Select.Item>
-                        <Select.Item value="DO">PhD</Select.Item>
-                        <Select.Item value="DO">PsyD</Select.Item>
-                      </Select.Group>
-                    </Select.Content>
-                  </Select.Root>
-                )}
-              ></Controller>
-              <ErrorMessage>{errors.title?.message}</ErrorMessage>
-            </div>
-            <div>
-              <Controller
-                name="role"
-                control={control}
-                render={({ field }) => (
-                  <Select.Root
-                    size="2"
-                    defaultValue={provider?.role}
-                    onValueChange={field.onChange}
-                  >
-                    <Select.Trigger placeholder="Role" />
-                    <Select.Content>
-                      <Select.Group>
-                        <Select.Label>Title</Select.Label>
-                        <Select.Item value="PSYCHIATRIST">
-                          Psychiatrist
-                        </Select.Item>
-                        <Select.Item value="THERAPIST">Therapist</Select.Item>
-                        <Select.Item value="RESIDENCY">Residency</Select.Item>
-                      </Select.Group>
-                    </Select.Content>
-                  </Select.Root>
-                )}
-              ></Controller>
-              <ErrorMessage>{errors.title?.message}</ErrorMessage>
-            </div>
+
+        <>
+          <div>
             <Controller
-              name="gender"
+              name="title"
               control={control}
               render={({ field }) => (
                 <Select.Root
                   size="2"
-                  defaultValue={provider?.gender}
+                  defaultValue={provider?.title}
                   onValueChange={field.onChange}
                 >
-                  <Select.Trigger placeholder="Gender" />
+                  <Select.Trigger placeholder="Title" />
                   <Select.Content>
                     <Select.Group>
-                      <Select.Label>Gender</Select.Label>
-                      <Select.Item value="MALE">Male</Select.Item>
-                      <Select.Item value="FEMALE">Female</Select.Item>
+                      <Select.Label>Title</Select.Label>
+                      <Select.Item value="NP">NP</Select.Item>
+                      <Select.Item value="MD">MD</Select.Item>
+                      <Select.Item value="DNP">DNP</Select.Item>
+                      <Select.Item value="DO">DO</Select.Item>
+                      <Select.Item value="AMFT">AMFT</Select.Item>
+                      <Select.Item value="APCC">APCC</Select.Item>
+                      <Select.Item value="LCSW">LCSW</Select.Item>
+                      <Select.Item value="PhD">PhD</Select.Item>
+                      <Select.Item value="PsyD">PsyD</Select.Item>
                     </Select.Group>
                   </Select.Content>
                 </Select.Root>
               )}
             ></Controller>
-            <ErrorMessage>{errors.gender?.message}</ErrorMessage>
-          </>
-        )}
+            <ErrorMessage>{errors.title?.message}</ErrorMessage>
+          </div>
+          <div>
+            <Controller
+              name="role"
+              control={control}
+              render={({ field }) => (
+                <Select.Root
+                  size="2"
+                  defaultValue={provider?.role}
+                  onValueChange={field.onChange}
+                >
+                  <Select.Trigger placeholder="Role" />
+                  <Select.Content>
+                    <Select.Group>
+                      <Select.Label>Title</Select.Label>
+                      <Select.Item value="PSYCHIATRIST">
+                        Psychiatrist
+                      </Select.Item>
+                      <Select.Item value="THERAPIST">Therapist</Select.Item>
+                      <Select.Item value="RESIDENCY">Residency</Select.Item>
+                    </Select.Group>
+                  </Select.Content>
+                </Select.Root>
+              )}
+            ></Controller>
+            <ErrorMessage>{errors.title?.message}</ErrorMessage>
+          </div>
+          <Controller
+            name="gender"
+            control={control}
+            render={({ field }) => (
+              <Select.Root
+                size="2"
+                defaultValue={provider?.gender}
+                onValueChange={field.onChange}
+              >
+                <Select.Trigger placeholder="Gender" />
+                <Select.Content>
+                  <Select.Group>
+                    <Select.Label>Gender</Select.Label>
+                    <Select.Item value="MALE">Male</Select.Item>
+                    <Select.Item value="FEMALE">Female</Select.Item>
+                  </Select.Group>
+                </Select.Content>
+              </Select.Root>
+            )}
+          ></Controller>
+          <ErrorMessage>{errors.gender?.message}</ErrorMessage>
+        </>
 
         <TextField.Root
           defaultValue={provider?.evaluation}
@@ -179,6 +174,12 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
           {...register("workingHours")}
         />
         <ErrorMessage>{errors.workingHours?.message}</ErrorMessage>
+        <TextField.Root
+          defaultValue={provider?.link}
+          placeholder="link"
+          {...register("link")}
+        />
+        <ErrorMessage>{errors.link?.message}</ErrorMessage>
         <Button disabled={isSubmitting}>
           {provider ? "Edit" : "Submit"} {isSubmitting && <Spinner />}
         </Button>

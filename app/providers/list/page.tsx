@@ -4,7 +4,6 @@ import Link from "../../components/Link";
 import ProviderActions from "./ProviderActions";
 import { Role } from "@prisma/client";
 import ProviderRoleBadge from "./ProviderRoleBadge";
-import { CopyIcon } from "@radix-ui/react-icons";
 import CopyButton from "./CopyButton";
 
 interface Props {
