@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { object, string, z } from "zod";
 
 const ProviderTitleEnum = z.enum([
   "NP",
@@ -35,4 +35,10 @@ export const userSchema = z.object({
   password: z.string().min(1, { message: "username is required" }).max(12),
   title: z.string().min(1, { message: "Title is required" }),
   gender: GenderEnum,
+});
+
+// Schema for validating login request
+export const loginSchema = z.object({
+  username: z.string().min(1, { message: "Username is required" }),
+  password: z.string().min(1, { message: "Password is required" }).max(12),
 });
