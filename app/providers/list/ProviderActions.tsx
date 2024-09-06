@@ -5,7 +5,7 @@ import ProviderFilter from "./ProviderFilter";
 
 const ProviderActions = () => {
   return (
-    <Flex mb="5" justify="between">
+    <Flex justify="between">
       <ProviderFilter />
       <Button>
         <Link href="/providers/new">New provider</Link>
