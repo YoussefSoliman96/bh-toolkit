@@ -1,11 +1,8 @@
 "use client";
 
-import prisma from "@/prisma/client";
-import { Provider } from "@prisma/client";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Box, TextField } from "@radix-ui/themes";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 const SearchBar = () => {

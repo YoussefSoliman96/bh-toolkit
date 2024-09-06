@@ -13,7 +13,6 @@ import { z } from "zod";
 type ProviderFormData = z.infer<typeof providerSchema>;
 
 const ProviderForm = ({ provider }: { provider?: Provider }) => {
-  const currentPath = usePathname();
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const router = useRouter();
