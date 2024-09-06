@@ -2,6 +2,8 @@ import prisma from "@/prisma/client";
 import { compare } from "bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { signIn } from "next-auth/react";
+import { pages } from "next/dist/build/templates/app-page";
 import { title } from "process";
 
 declare module "next-auth" {
@@ -59,6 +61,9 @@ const handler = NextAuth({
       },
     }),
   ],
+  pages: {
+    signIn: "/login", // Custom login page
+  },
 });
 
 export { handler as GET, handler as POST };
