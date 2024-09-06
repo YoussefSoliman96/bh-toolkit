@@ -26,9 +26,7 @@ export default function Register() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic to handle form submission
-    console.log(formData);
-    // Call API to submit data
+
     const response = await fetch("/api/register", {
       method: "POST",
       headers: {

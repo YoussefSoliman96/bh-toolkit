@@ -6,7 +6,6 @@ import bcrypt from "bcrypt";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    console.log("Request body:", body); // Log the request body for debugging
 
     const validation = loginSchema.safeParse(body);
 
