@@ -1,16 +1,50 @@
 import prisma from "@/prisma/client";
-import { Table, Flex, Button, Badge } from "@radix-ui/themes";
+import { Provider, Role } from "@prisma/client";
+import { Badge, Flex, Table } from "@radix-ui/themes";
 import Link from "../../components/Link";
-import ProviderActions from "./ProviderActions";
-import { Role } from "@prisma/client";
-import ProviderRoleBadge from "./ProviderRoleBadge";
+import NextLink from "next/link";
 import CopyButton from "./CopyButton";
+import ProviderActions from "./ProviderActions";
+import ProviderRoleBadge from "./ProviderRoleBadge";
+import { ArrowUpIcon } from "@radix-ui/react-icons";
 
 interface Props {
-  searchParams: { role: Role };
+  searchParams: { role: Role; orderBy: keyof Provider };
 }
 
 const ProvidersPage = async ({ searchParams }: Props) => {
+  const columns = [
+    { label: "Name", value: "firstName" },
+    { label: "Role", value: "role", className: "hidden md:table-cell" },
+    { label: "Gender", value: "gender", className: "hidden md:table-cell" },
+    {
+      label: "Evaluation",
+      value: "evaluation",
+      className: "hidden md:table-cell",
+    },
+    {
+      label: "Follow Up",
+      value: "followUp",
+      className: "hidden md:table-cell",
+    },
+    {
+      label: "Languages",
+      value: "languages",
+      className: "hidden md:table-cell",
+    },
+    {
+      label: "Age Range",
+      value: "ageRange",
+      className: "hidden md:table-cell",
+    },
+    {
+      label: "Working Hours",
+      value: "workingHours",
+      className: "hidden md:table-cell",
+    },
+    { label: "Link", value: "link", className: "hidden md:table-cell" },
+  ];
+
   const roles = Object.values(Role);
   const role = roles.includes(searchParams.role)
     ? searchParams.role
@@ -25,31 +59,23 @@ const ProvidersPage = async ({ searchParams }: Props) => {
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Role
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Gender
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Initial
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Follow Up
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Languages
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Age Range
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Working Hours
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Link
-            </Table.ColumnHeaderCell>
+            {columns.map((column) => (
+              <Table.ColumnHeaderCell
+                key={column.value}
+                className={column.className}
+              >
+                <NextLink
+                  href={{
+                    query: { ...searchParams, orderBy: column.value },
+                  }}
+                >
+                  {column.label}
+                </NextLink>
+                {column.value === searchParams.orderBy && (
+                  <ArrowUpIcon className="inline" />
+                )}
+              </Table.ColumnHeaderCell>
+            ))}
           </Table.Row>
         </Table.Header>
 
