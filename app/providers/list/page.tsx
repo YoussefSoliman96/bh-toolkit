@@ -6,6 +6,7 @@ import { Box, Flex, Slot, TextField } from "@radix-ui/themes";
 import { Metadata } from "next";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Root } from "postcss";
+import SearchBar from "../_components/SearchBar";
 
 interface Props {
   searchParams: ProviderQuery;
@@ -20,22 +21,34 @@ const ProvidersPage = async ({ searchParams }: Props) => {
   const orderBy = columnNames.includes(searchParams.orderBy)
     ? { [searchParams.orderBy]: "asc" }
     : undefined;
+
   const providers = await prisma.provider.findMany({
     where: { role },
     orderBy,
   });
 
+  const filteredProviders = searchParams.query
+    ? providers.filter((provider) => {
+        return provider.firstName
+          .toLowerCase()
+          .includes(searchParams.query.toLowerCase())
+          ? provider.firstName
+              .toLowerCase()
+              .includes(searchParams.query.toLowerCase())
+          : provider.lastName
+              .toLowerCase()
+              .includes(searchParams.query.toLowerCase());
+      })
+    : providers;
+
   return (
     <Flex direction="column" gap="3">
       <ProviderActions />
-      <Box>
-        <TextField.Root placeholder="Search the docs…">
-          <TextField.Slot>
-            <MagnifyingGlassIcon height="16" width="16" />
-          </TextField.Slot>
-        </TextField.Root>
-      </Box>
-      <ProviderTable providers={providers} searchParams={searchParams} />
+      <SearchBar />
+      <ProviderTable
+        providers={filteredProviders}
+        searchParams={searchParams}
+      />
     </Flex>
   );
 };

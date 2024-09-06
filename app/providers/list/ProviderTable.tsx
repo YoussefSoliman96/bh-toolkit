@@ -1,15 +1,15 @@
 import { Provider, Role } from "@prisma/client";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
-import { Badge, Flex, Table } from "@radix-ui/themes";
+import { Table } from "@radix-ui/themes";
 import NextLink from "next/link";
 import Link from "../../components/Link";
-import CopyButton from "./CopyButton";
-import ProviderRoleBadge from "./ProviderRoleBadge";
 import ProviderLink from "../_components/ProviderLink";
+import ProviderRoleBadge from "./ProviderRoleBadge";
 
 export interface ProviderQuery {
   role: Role;
   orderBy: keyof Provider;
+  query: string;
 }
 
 interface Props {
