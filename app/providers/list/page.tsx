@@ -49,8 +49,15 @@ const ProvidersPage = async ({ searchParams }: Props) => {
   const role = roles.includes(searchParams.role)
     ? searchParams.role
     : undefined;
+
+  const orderBy = columns
+    .map((column) => column.value)
+    .includes(searchParams.orderBy)
+    ? { [searchParams.orderBy]: "asc" }
+    : undefined;
   const providers = await prisma.provider.findMany({
     where: { role },
+    orderBy,
   });
 
   return (
