@@ -6,13 +6,14 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Box, TextField } from "@radix-ui/themes";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 const SearchBar = () => {
   const searchParams = useSearchParams();
 
   const router = useRouter();
 
-  const handleSearch = (searchTerm: string) => {
+  const handleSearch = useDebouncedCallback((searchTerm: string) => {
     const params = new URLSearchParams();
     if (searchTerm) params.append("query", searchTerm);
     if (searchParams.get("orderBy"))
@@ -22,7 +23,7 @@ const SearchBar = () => {
 
     const query = params.size ? "?" + params.toString() : "";
     router.push("/providers/list" + query);
-  };
+  }, 300);
   return (
     <Box>
       <TextField.Root
