@@ -5,6 +5,7 @@ import NextLink from "next/link";
 import Link from "../../components/Link";
 import CopyButton from "./CopyButton";
 import ProviderRoleBadge from "./ProviderRoleBadge";
+import ProviderLink from "../_components/ProviderLink";
 
 export interface ProviderQuery {
   role: Role;
@@ -71,12 +72,7 @@ const ProviderTable = ({ searchParams, providers }: Props) => {
               {provider.workingHours}
             </Table.Cell>
             <Table.Cell className="hidden md:table-cell">
-              <Flex gap="3" className="items-center">
-                <Badge color="violet" size="2">
-                  {provider.link}
-                </Badge>
-                <CopyButton doxyLink={provider.link} />
-              </Flex>
+              <ProviderLink doxyLink={provider.link} />
             </Table.Cell>
           </Table.Row>
         ))}
