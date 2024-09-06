@@ -27,3 +27,12 @@ export const providerSchema = z.object({
   workingHours: z.string().min(1, { message: "Working hours are required" }),
   link: z.string().min(1).max(100),
 });
+
+export const userSchema = z.object({
+  firstName: z.string().min(1, { message: "First name is required" }),
+  lastName: z.string().min(1, { message: "Last name is required" }),
+  username: z.string().min(1, { message: "username is required" }),
+  password: z.string().min(1, { message: "username is required" }).max(12),
+  title: z.string().min(1, { message: "Title is required" }),
+  gender: GenderEnum,
+});
