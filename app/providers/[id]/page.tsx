@@ -1,21 +1,21 @@
 import prisma from "@/prisma/client";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
+import { cache } from "react";
+import DeleteProviderButton from "./DeleteProviderButton";
 import EditProviderButton from "./EditProviderButton";
 import ProviderDetails from "./ProviderDetails";
-import DeleteProviderButton from "./DeleteProviderButton";
-import { Metadata } from "next";
 
 interface Props {
   params: { id: string };
 }
 
+const fetchProvider = cache((providerId: number) =>
+  prisma.provider.findUnique({ where: { id: providerId } })
+);
+
 const ProviderDetailPage = async ({ params }: Props) => {
-  const provider = await prisma.provider.findUnique({
-    where: {
-      id: parseInt(params.id),
-    },
-  });
+  const provider = await fetchProvider(parseInt(params.id));
 
   if (!provider) notFound();
   return (
@@ -34,11 +34,7 @@ const ProviderDetailPage = async ({ params }: Props) => {
 };
 
 export async function generateMetadata({ params }: Props) {
-  const provider = await prisma.provider.findUnique({
-    where: {
-      id: parseInt(params.id),
-    },
-  });
+  const provider = await fetchProvider(parseInt(params.id));
   return {
     title: `${provider?.title} ${provider?.firstName} ${provider?.lastName}`,
   };
