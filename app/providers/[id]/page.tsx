@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import EditProviderButton from "./EditProviderButton";
 import ProviderDetails from "./ProviderDetails";
 import DeleteProviderButton from "./DeleteProviderButton";
+import { Metadata } from "next";
 
 interface Props {
   params: { id: string };
@@ -31,5 +32,16 @@ const ProviderDetailPage = async ({ params }: Props) => {
     </Grid>
   );
 };
+
+export async function generateMetadata({ params }: Props) {
+  const provider = await prisma.provider.findUnique({
+    where: {
+      id: parseInt(params.id),
+    },
+  });
+  return {
+    title: `${provider?.title} ${provider?.firstName} ${provider?.lastName}`,
+  };
+}
 
 export default ProviderDetailPage;

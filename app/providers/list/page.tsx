@@ -3,6 +3,7 @@ import { Provider, Role } from "@prisma/client";
 import ProviderActions from "./ProviderActions";
 import ProviderTable, { columnNames, ProviderQuery } from "./ProviderTable";
 import { Flex } from "@radix-ui/themes";
+import { Metadata } from "next";
 
 interface Props {
   searchParams: ProviderQuery;
@@ -32,4 +33,7 @@ const ProvidersPage = async ({ searchParams }: Props) => {
 
 export const dynamic = "force-dynamic";
 
+export const metadata: Metadata = {
+  title: "Brain Health - Providers",
+};
 export default ProvidersPage;
