@@ -72,7 +72,7 @@ const ProviderTable = ({ searchParams, providers }: Props) => {
               {provider.workingHours}
             </Table.Cell>
             <Table.Cell className="hidden md:table-cell">
-              <ProviderLink doxyLink={provider.link} />
+              <ProviderLink doxyLink={provider.link} size="2" />
             </Table.Cell>
           </Table.Row>
         ))}
