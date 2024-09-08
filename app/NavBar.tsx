@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  Avatar,
-  Box,
-  DropdownMenu,
-  Flex,
-  Text,
-  Badge,
-  Button,
-  IconButton,
-} from "@radix-ui/themes";
+import { Box, DropdownMenu, Flex, IconButton } from "@radix-ui/themes";
 import classnames from "classnames";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -23,7 +14,6 @@ const NavBar = () => {
     { label: "Dashboard", href: "/" },
     { label: "Providers", href: "/providers/list" },
   ];
-  console.log(session?.user);
 
   return (
     <>
@@ -45,6 +35,9 @@ const NavBar = () => {
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
                   <DropdownMenu.Label>{session.user.email}</DropdownMenu.Label>
+                  <DropdownMenu.Item>
+                    <Link href="/profile">Profile</Link>
+                  </DropdownMenu.Item>
                   <DropdownMenu.Item>
                     <Link href="/api/auth/signout">Log out</Link>
                   </DropdownMenu.Item>
