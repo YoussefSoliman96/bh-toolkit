@@ -2,10 +2,11 @@
 
 import { Box, DropdownMenu, Flex, IconButton } from "@radix-ui/themes";
 import classnames from "classnames";
+import { link } from "fs";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const NavBar = () => {
   return (
@@ -55,11 +56,16 @@ const NavLinks = () => {
 
 const AuthStatus = () => {
   const { status, data: session } = useSession();
+  const router = useRouter();
+  const handleLinkClick = (url: string) => {
+    // window.open(url);
+    router.push(url);
+  };
 
   if (status === "loading") return null;
   if (status === "unauthenticated")
     return (
-      <Link className="nav-link px-5 py-4" href="/api/auth/signin">
+      <Link className="nav-link" href="/api/auth/signin">
         Login
       </Link>
     );
@@ -78,10 +84,12 @@ const AuthStatus = () => {
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>
             <DropdownMenu.Label>{session.user.email}</DropdownMenu.Label>
-            <DropdownMenu.Item>
+            <DropdownMenu.Item onClick={() => handleLinkClick("/profile")}>
               <Link href="/profile">Profile</Link>
             </DropdownMenu.Item>
-            <DropdownMenu.Item>
+            <DropdownMenu.Item
+              onClick={() => handleLinkClick("/api/auth/signout")}
+            >
               <Link href="/api/auth/signout">Log out</Link>
             </DropdownMenu.Item>
           </DropdownMenu.Content>
