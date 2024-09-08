@@ -6,7 +6,7 @@ import { Provider } from "@prisma/client";
 import { Button, Callout, Select, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,9 +21,14 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm<ProviderFormData>({
     resolver: zodResolver(providerSchema),
   });
+  useEffect(() => {
+    reset(provider);
+  }, [provider, reset]);
+
   const onSubmit = handleSubmit(async (data) => {
     try {
       setSubmitting(true);
@@ -67,7 +72,8 @@ const ProviderForm = ({ provider }: { provider?: Provider }) => {
               render={({ field }) => (
                 <Select.Root
                   size="2"
-                  defaultValue={provider?.title}
+                  value={provider?.title}
+                  // defaultValue={provider?.title}
                   onValueChange={field.onChange}
                 >
                   <Select.Trigger placeholder="Title" />
