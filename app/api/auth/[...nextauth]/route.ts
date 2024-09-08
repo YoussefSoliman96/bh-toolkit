@@ -2,13 +2,11 @@ import prisma from "@/prisma/client";
 import { compare } from "bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { signIn } from "next-auth/react";
-import { pages } from "next/dist/build/templates/app-page";
-import { title } from "process";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 declare module "next-auth" {
   interface User {
-    id: number;
+    id: string;
     username: string;
     firstName: string;
     lastName: string;
@@ -24,6 +22,7 @@ const handler = NextAuth({
   session: {
     strategy: "jwt",
   },
+  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       name: "Credentials",
