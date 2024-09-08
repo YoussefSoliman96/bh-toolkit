@@ -29,15 +29,16 @@ const ProvidersPage = async ({ searchParams }: Props) => {
 
   const filteredProviders = searchParams.query
     ? providers.filter((provider) => {
-        return provider.firstName
-          .toLowerCase()
-          .includes(searchParams.query.toLowerCase())
-          ? provider.firstName
-              .toLowerCase()
-              .includes(searchParams.query.toLowerCase())
-          : provider.lastName
-              .toLowerCase()
-              .includes(searchParams.query.toLowerCase());
+        const query = searchParams.query.toLowerCase();
+        const firstName = provider.firstName.toLowerCase();
+        const lastName = provider.lastName.toLowerCase();
+        const fullName = `${firstName} ${lastName}`;
+
+        return (
+          firstName.includes(query) ||
+          lastName.includes(query) ||
+          fullName.includes(query)
+        );
       })
     : providers;
 

@@ -20,7 +20,7 @@ const SearchBar = () => {
 
     const query = params.size ? "?" + params.toString() : "";
     router.push("/providers/list" + query);
-  }, 300);
+  }, 200);
   return (
     <Box>
       <TextField.Root
