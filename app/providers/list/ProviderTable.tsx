@@ -46,7 +46,7 @@ const ProviderTable = ({ searchParams, providers }: Props) => {
         {providers.map((provider) => (
           <Table.Row key={provider.id}>
             <Table.Cell>
-              <Link href={`/providers/${provider.id}`}>
+              <Link target="_blank" href={`/providers/${provider.id}`}>
                 {`${provider.title} ${provider.firstName} ${provider.lastName}`}
               </Link>
             </Table.Cell>
