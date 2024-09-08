@@ -18,6 +18,7 @@ declare module "next-auth" {
     user: User;
   }
 }
+
 const handler = NextAuth({
   session: {
     strategy: "jwt",
@@ -51,7 +52,6 @@ const handler = NextAuth({
             lastName: user.lastName,
             gender: user.gender,
             title: user.title,
-            // You can return any other fields required by your app
           };
         } else {
           // If login fails, return null
@@ -62,6 +62,34 @@ const handler = NextAuth({
   ],
   pages: {
     signIn: "/login", // Custom login page
+  },
+  callbacks: {
+    // Custom JWT callback to include user data in the token
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.username = user.username;
+        token.firstName = user.firstName;
+        token.lastName = user.lastName;
+        token.gender = user.gender;
+        token.title = user.title;
+      }
+      return token;
+    },
+    // Custom session callback to include user data in the session
+    async session({ session, token }) {
+      if (token) {
+        session.user = {
+          id: token.id as string,
+          username: token.username as string,
+          firstName: token.firstName as string,
+          lastName: token.lastName as string,
+          gender: token.gender as string,
+          title: token.title as string,
+        };
+      }
+      return session;
+    },
   },
 });
 
