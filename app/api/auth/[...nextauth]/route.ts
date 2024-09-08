@@ -12,6 +12,7 @@ declare module "next-auth" {
     lastName: string;
     gender: string;
     title: string;
+    email?: string;
   }
 
   interface Session {
@@ -52,6 +53,7 @@ const handler = NextAuth({
             lastName: user.lastName,
             gender: user.gender,
             title: user.title,
+            email: user.email || undefined,
           };
         } else {
           // If login fails, return null
@@ -73,6 +75,7 @@ const handler = NextAuth({
         token.lastName = user.lastName;
         token.gender = user.gender;
         token.title = user.title;
+        token.email = user.email;
       }
       return token;
     },
@@ -86,6 +89,7 @@ const handler = NextAuth({
           lastName: token.lastName as string,
           gender: token.gender as string,
           title: token.title as string,
+          email: token.email as string,
         };
       }
       return session;

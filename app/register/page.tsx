@@ -13,6 +13,7 @@ export default function Register() {
     password: "",
     title: "",
     gender: "MALE",
+    email: "",
   });
 
   const handleChange = (
@@ -96,6 +97,23 @@ export default function Register() {
               name="username"
               type="text"
               value={formData.username}
+              onChange={handleChange}
+              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              required
+            />
+          </div>
+          <div>
+            <Label.Root
+              className="block text-sm font-medium text-gray-700"
+              htmlFor="email"
+            >
+              Email
+            </Label.Root>
+            <input
+              id="email"
+              name="email"
+              type="text"
+              value={formData.email}
               onChange={handleChange}
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               required
