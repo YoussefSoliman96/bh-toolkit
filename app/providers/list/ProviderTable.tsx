@@ -1,6 +1,6 @@
 import { Provider, Role } from "@prisma/client";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
-import { Table } from "@radix-ui/themes";
+import { ArrowUpIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
+import { Flex, Table } from "@radix-ui/themes";
 import NextLink from "next/link";
 import Link from "../../components/Link";
 import ProviderLink from "../_components/ProviderLink";
@@ -69,10 +69,12 @@ const ProviderTable = ({ searchParams, providers }: Props) => {
               {provider.ageRange}
             </Table.Cell>
             <Table.Cell className="hidden md:table-cell">
-              {provider.workingHours}
-            </Table.Cell>
-            <Table.Cell className="hidden md:table-cell">
-              <ProviderLink doxyLink={provider.link} size="2" />
+              <Flex gap="2">
+                <ProviderLink doxyLink={provider.link} size="2" />
+                <NextLink href="/confirmation">
+                  <ExternalLinkIcon className="mt-1" />
+                </NextLink>
+              </Flex>
             </Table.Cell>
           </Table.Row>
         ))}
@@ -111,11 +113,7 @@ const columns = [
     value: "ageRange",
     className: "hidden md:table-cell",
   },
-  {
-    label: "Working Hours",
-    value: "workingHours",
-    className: "hidden md:table-cell",
-  },
+
   { label: "Link", value: "link", className: "hidden md:table-cell" },
 ];
 
