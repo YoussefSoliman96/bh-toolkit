@@ -1,9 +1,10 @@
 "use client";
 
 import { Provider } from "@prisma/client";
-import { Card, Flex, Select, Text, Button, Box } from "@radix-ui/themes";
+import { Card, Flex, Text, Button } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Select from "react-select";
 import { FaCopy } from "react-icons/fa";
 
 interface Props {
@@ -13,25 +14,33 @@ interface Props {
 const ProviderSelector = ({ providers }: Props) => {
   const session = useSession();
 
+  const today = new Date();
+  const initialDate = today.toISOString().split("T")[0];
+
   const [selectedProvider, setSelectedProvider] = useState<Provider | null>(
     null
   );
-  const [month, setMonth] = useState("");
-  const [day, setDay] = useState("");
+  const [date, setDate] = useState(initialDate);
   const [time, setTime] = useState("");
-  const [copyStatus, setCopyStatus] = useState<string | null>(null); // Change to null for conditional rendering
+  const [copyStatus, setCopyStatus] = useState<string | null>(null);
 
-  const handleProviderChange = (value: string) => {
-    const provider = providers.find((p) => p.id === parseInt(value));
-    setSelectedProvider(provider || null);
-    console.log(provider);
+  const handleProviderChange = (provider: any) => {
+    const selected = providers.find((p) => p.id === provider.value);
+    setSelectedProvider(selected || null);
   };
 
   const handleCopyMessage = () => {
-    if (!selectedProvider || !month || !day || !time) {
+    if (!selectedProvider || !date || !time) {
       setCopyStatus("Please fill in all the fields.");
       return;
     }
+
+    const formattedTime = convertTo12HourFormat(time);
+    const formattedDate = new Date(date).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
 
     const message = `Hi! This is ${
       session.data?.user.firstName || "Agent's name"
@@ -39,61 +48,49 @@ const ProviderSelector = ({ providers }: Props) => {
       selectedProvider?.title || "[Provider's title]"
     } ${selectedProvider?.firstName || ""} ${
       selectedProvider?.lastName || ""
-    } for ${month}/${day} at ${time}. Please follow the following link to connect with your provider: ${
+    } for ${formattedDate} at ${formattedTime}. Please follow the following link to connect with your provider: ${
       selectedProvider?.link ? selectedProvider.link : "[Provider's link]"
     }. If you need to change or cancel your appointment, please inform us at least 24hrs in advance. A $35 fee may apply to no-shows.`;
 
-    // Copy message to clipboard
     navigator.clipboard
       .writeText(message)
       .then(() => {
-        setCopyStatus("Message copied!"); // Set success message
-        setTimeout(() => setCopyStatus(null), 2000); // Clear message after 2 seconds
+        setCopyStatus("Message copied!");
+        setTimeout(() => setCopyStatus(null), 2000);
       })
       .catch(() => {
-        setCopyStatus("Failed to copy message."); // Set failure message
+        setCopyStatus("Failed to copy message.");
       });
   };
+
+  const providerOptions = providers.map((provider) => ({
+    value: provider.id,
+    label: `${provider.firstName} ${provider.lastName}`,
+  }));
 
   return (
     <Flex justify="between">
       <Flex direction="column" gap="8">
-        <Select.Root onValueChange={handleProviderChange}>
-          <Select.Trigger placeholder="Choose provider" />
-          <Select.Content>
-            {providers.map((provider) => (
-              <Select.Item key={provider.id} value={provider.id.toString()}>
-                {provider.firstName + " " + provider.lastName}
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Root>
+        {/* Provider Selector */}
+        <Select
+          options={providerOptions}
+          onChange={handleProviderChange}
+          placeholder="Choose provider"
+        />
+
+        {/* Date Input */}
         <div className="mt-4">
           <label>
-            Month:
+            Date:
             <input
-              type="number"
-              min="1"
-              max="12"
-              value={month}
-              onChange={(e) => setMonth(e.target.value)}
-              placeholder="MM"
-              className="ml-2 w-16"
-            />
-          </label>
-          <label className="ml-4">
-            Day:
-            <input
-              type="number"
-              min="1"
-              max="31"
-              value={day}
-              onChange={(e) => setDay(e.target.value)}
-              placeholder="DD"
-              className="ml-2 w-16"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="ml-2 w-44"
             />
           </label>
         </div>
+
         <input
           type="time"
           value={time}
@@ -111,8 +108,16 @@ const ProviderSelector = ({ providers }: Props) => {
             {`${selectedProvider?.title || "[Provider's name]"} ${
               selectedProvider?.firstName || ""
             } ${selectedProvider?.lastName || ""}`}{" "}
-            for {month ? month : ""}/{day ? day : ""} at {time ? time : ""}.
-            Please follow the following link to connect with your provider:{" "}
+            for{" "}
+            {date
+              ? new Date(date).toLocaleDateString(undefined, {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              : ""}{" "}
+            at {time ? convertTo12HourFormat(time) : ""}. Please follow the
+            following link to connect with your provider:{" "}
             {selectedProvider?.link ? selectedProvider.link : ""}. If you need
             to change or cancel your appointment, please inform us at least 24
             hours in advance. A $35 fee may apply to no-shows.
@@ -135,3 +140,10 @@ const ProviderSelector = ({ providers }: Props) => {
 };
 
 export default ProviderSelector;
+
+const convertTo12HourFormat = (time: string) => {
+  const [hours, minutes] = time.split(":").map(Number);
+  const ampm = hours >= 12 ? "PM" : "AM";
+  const adjustedHours = hours % 12 || 12;
+  return `${adjustedHours}:${minutes < 10 ? `0${minutes}` : minutes} ${ampm}`;
+};
