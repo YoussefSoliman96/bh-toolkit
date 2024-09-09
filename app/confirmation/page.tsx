@@ -1,5 +1,4 @@
 import prisma from "@/prisma/client";
-import { Flex, Select } from "@radix-ui/themes";
 import { Metadata } from "next";
 import ProviderSelector from "./ProviderSelector";
 

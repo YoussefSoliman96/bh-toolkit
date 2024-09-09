@@ -2,7 +2,6 @@
 
 import { Box, DropdownMenu, Flex, IconButton } from "@radix-ui/themes";
 import classnames from "classnames";
-import { link } from "fs";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -35,6 +34,7 @@ const NavLinks = () => {
     { label: "Dashboard", href: "/" },
     { label: "Providers", href: "/providers/list" },
     { label: "Handlers", href: "/distribution" },
+    { label: "Confirmation", href: "/confirmation" },
   ];
   return (
     <ul className="flex space-x-6  px-5 py-3">
