@@ -8,6 +8,12 @@ export interface ProviderWithHandler extends PrismaProvider {
   handler: {
     name: string;
   } | null;
+  scheduler: {
+    name: string;
+  } | null;
+  transcriber: {
+    name: string;
+  } | null;
 }
 
 export interface ProviderQuery {
@@ -60,6 +66,12 @@ const DistributionTable = async ({ searchParams, providers }: Props) => {
               <Table.Cell className="hidden md:table-cell">
                 {provider.handler?.name}
               </Table.Cell>
+              <Table.Cell className="hidden md:table-cell">
+                {provider.scheduler?.name}
+              </Table.Cell>
+              <Table.Cell className="hidden md:table-cell">
+                {provider.transcriber?.name}
+              </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -72,13 +84,17 @@ export default DistributionTable;
 const columns = [
   { label: "Name", value: "firstName" },
   { label: "Role", value: "role", className: "hidden md:table-cell" },
-  { label: "Handler", value: "handler", className: "hidden md:table-cell" },
-  // { label: "Scheduler", value: "scheduler", className: "hidden md:table-cell" },
-  // {
-  //   label: "Transcriber",
-  //   value: "Transcriber",
-  //   className: "hidden md:table-cell",
-  // },
+  { label: "Handler", value: "handlerId", className: "hidden md:table-cell" },
+  {
+    label: "Scheduler",
+    value: "schedulerId",
+    className: "hidden md:table-cell",
+  },
+  {
+    label: "Transcriber",
+    value: "transcriberId",
+    className: "hidden md:table-cell",
+  },
 ];
 
 export const columnNames = columns.map((column) => column.value);

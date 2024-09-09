@@ -28,7 +28,9 @@ const DistributionPage = async ({ searchParams }: Props) => {
     where: { role },
     orderBy,
     include: {
-      handler: true, // Include the related handler data
+      handler: true,
+      scheduler: true,
+      transcriber: true, // Include the related handler data
     },
   });
 
