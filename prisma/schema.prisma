@@ -27,34 +27,50 @@ datasource db {
 // }
 
 model Provider {
-  id                       Int      @id @default(autoincrement())
+  id                       Int          @id @default(autoincrement())
   title                    Title
   role                     Role
   firstName                String
   lastName                 String
   gender                   Gender
-  evaluation               String   @default("30")
-  followUp                 String   @default("10")
-  languages                String   @default("English")
+  evaluation               String       @default("30")
+  followUp                 String       @default("10")
+  languages                String       @default("English")
   ageRange                 String
-  workingHours             String   @default("")
-  suboxoneAddiction        Boolean  @default(false)
-  adhd                     Boolean  @default(false)
-  schizophreniaBipolar     Boolean  @default(false)
-  clozapine                Boolean  @default(false)
-  autism                   Boolean  @default(false)
-  acceptPainManagementPts  Boolean  @default(false)
-  traumaticBrainInjury     Boolean  @default(false)
-  neurodegenerativeDisease Boolean  @default(false)
-  minorsAfterSchool        Boolean  @default(false)
-  link                     String   @default("")
-  handler                  Handler? @relation(fields: [handlerId], references: [id])
+  workingHours             String       @default("")
+  suboxoneAddiction        Boolean      @default(false)
+  adhd                     Boolean      @default(false)
+  schizophreniaBipolar     Boolean      @default(false)
+  clozapine                Boolean      @default(false)
+  autism                   Boolean      @default(false)
+  acceptPainManagementPts  Boolean      @default(false)
+  traumaticBrainInjury     Boolean      @default(false)
+  neurodegenerativeDisease Boolean      @default(false)
+  minorsAfterSchool        Boolean      @default(false)
+  link                     String       @default("")
+  handler                  Handler?     @relation(fields: [handlerId], references: [id])
   handlerId                Int?
-  createdAt                DateTime @default(now())
-  updatedAt                DateTime @updatedAt
+  scheduler                Scheduler?   @relation(fields: [schedulerId], references: [id])
+  schedulerId              Int?
+  transcriber              Transcriber? @relation(fields: [transcriberId], references: [id])
+  transcriberId            Int?
+  createdAt                DateTime     @default(now())
+  updatedAt                DateTime     @updatedAt
 }
 
 model Handler {
+  id       Int        @id @default(autoincrement())
+  name     String
+  provider Provider[]
+}
+
+model Scheduler {
+  id       Int        @id @default(autoincrement())
+  name     String
+  provider Provider[]
+}
+
+model Transcriber {
   id       Int        @id @default(autoincrement())
   name     String
   provider Provider[]

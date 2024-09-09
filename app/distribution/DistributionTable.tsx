@@ -4,7 +4,7 @@ import { Link, Table } from "@radix-ui/themes";
 import NextLink from "next/link";
 import ProviderRoleBadge from "../providers/list/ProviderRoleBadge";
 
-interface ProviderWithHandler extends PrismaProvider {
+export interface ProviderWithHandler extends PrismaProvider {
   handler: {
     name: string;
   } | null;
