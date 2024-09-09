@@ -1,30 +1,27 @@
-import { Role, Provider } from "@prisma/client";
-import { Link, Table } from "@radix-ui/themes";
-import React from "react";
-import NextLink from "next/link";
+import { Provider as PrismaProvider, Role } from "@prisma/client";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
-import ProviderLink from "../providers/_components/ProviderLink";
+import { Link, Table } from "@radix-ui/themes";
+import NextLink from "next/link";
 import ProviderRoleBadge from "../providers/list/ProviderRoleBadge";
-import { capitalizeFirstLetter } from "../providers/list/ProviderTable";
-import prisma from "@/prisma/client";
+
+interface ProviderWithHandler extends PrismaProvider {
+  handler: {
+    name: string;
+  } | null;
+}
 
 export interface ProviderQuery {
   role: Role;
-  orderBy: keyof Provider;
+  orderBy: keyof ProviderWithHandler;
   query: string;
 }
 
 interface Props {
   searchParams: ProviderQuery;
-  providers: Provider[];
+  providers: ProviderWithHandler[];
 }
 
 const DistributionTable = async ({ searchParams, providers }: Props) => {
-  const providersWithHandlers = await prisma.provider.findMany({
-    include: {
-      handler: true, // Include the related handler data
-    },
-  });
   return (
     <>
       <Table.Root>
@@ -50,7 +47,7 @@ const DistributionTable = async ({ searchParams, providers }: Props) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {providersWithHandlers.map((provider) => (
+          {providers.map((provider) => (
             <Table.Row key={provider.id}>
               <Table.Cell>
                 <Link href={`/providers/${provider.id}`}>

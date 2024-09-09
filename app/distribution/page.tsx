@@ -1,15 +1,14 @@
 import prisma from "@/prisma/client";
 import { Role } from "@prisma/client";
-
 import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
 
-import SearchBar from "../providers/_components/SearchBar";
+import DistributionFilter from "./DistributionFilter";
+import DistributionSearchBar from "./DistributionSearchBar";
 import DistributionTable, {
   columnNames,
   ProviderQuery,
 } from "./DistributionTable";
-import DistributionSearchBar from "./DistributionSearchBar";
 
 interface Props {
   searchParams: ProviderQuery;
@@ -50,6 +49,7 @@ const DistributionPage = async ({ searchParams }: Props) => {
 
   return (
     <Flex direction="column" gap="3">
+      <DistributionFilter />
       <DistributionSearchBar />
       <DistributionTable
         providers={filteredProviders}
