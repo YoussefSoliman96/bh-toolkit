@@ -24,6 +24,16 @@ const ProviderSelector = ({ providers }: Props) => {
   const [time, setTime] = useState("");
   const [copyStatus, setCopyStatus] = useState<string | null>(null);
 
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const providerId = queryParams.get("providerId");
+
+    if (providerId) {
+      const provider = providers.find((p) => p.id === parseInt(providerId));
+      setSelectedProvider(provider || null);
+    }
+  }, [providers]);
+
   const handleProviderChange = (provider: any) => {
     const selected = providers.find((p) => p.id === provider.value);
     setSelectedProvider(selected || null);
@@ -71,14 +81,20 @@ const ProviderSelector = ({ providers }: Props) => {
   return (
     <Flex justify="between">
       <Flex direction="column" gap="8">
-        {/* Provider Selector */}
         <Select
           options={providerOptions}
           onChange={handleProviderChange}
+          value={
+            selectedProvider
+              ? {
+                  value: selectedProvider.id,
+                  label: `${selectedProvider.firstName} ${selectedProvider.lastName}`,
+                }
+              : null
+          }
           placeholder="Choose provider"
         />
 
-        {/* Date Input */}
         <div className="mt-4">
           <label>
             Date:
@@ -90,7 +106,6 @@ const ProviderSelector = ({ providers }: Props) => {
             />
           </label>
         </div>
-
         <input
           type="time"
           value={time}
