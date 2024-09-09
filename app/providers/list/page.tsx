@@ -1,12 +1,10 @@
 import prisma from "@/prisma/client";
-import { Provider, Role } from "@prisma/client";
+import { Role } from "@prisma/client";
+import { Flex } from "@radix-ui/themes";
+import { Metadata } from "next";
+import SearchBar from "../_components/SearchBar";
 import ProviderActions from "./ProviderActions";
 import ProviderTable, { columnNames, ProviderQuery } from "./ProviderTable";
-import { Box, Flex, Slot, TextField } from "@radix-ui/themes";
-import { Metadata } from "next";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { Root } from "postcss";
-import SearchBar from "../_components/SearchBar";
 
 interface Props {
   searchParams: ProviderQuery;

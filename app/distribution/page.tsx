@@ -1,60 +1,67 @@
-import { Role, Provider } from "@prisma/client";
-import { Table } from "@radix-ui/themes";
-import React from "react";
-import NextLink from "next/link";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
+import prisma from "@/prisma/client";
+import { Role } from "@prisma/client";
 
-export interface ProviderQuery {
-  role: Role;
-  orderBy: keyof Provider;
-  query: string;
-}
+import { Flex } from "@radix-ui/themes";
+import { Metadata } from "next";
+
+import SearchBar from "../providers/_components/SearchBar";
+import DistributionTable, {
+  columnNames,
+  ProviderQuery,
+} from "./DistributionTable";
+import DistributionSearchBar from "./DistributionSearchBar";
 
 interface Props {
   searchParams: ProviderQuery;
-  providers: Provider[];
 }
 
-const DistributionPage = ({ searchParams, providers }: Props) => {
+const DistributionPage = async ({ searchParams }: Props) => {
+  const roles = Object.values(Role);
+  const role = roles.includes(searchParams.role)
+    ? searchParams.role
+    : undefined;
+
+  const orderBy = columnNames.includes(searchParams.orderBy)
+    ? { [searchParams.orderBy]: "asc" }
+    : undefined;
+
+  const providers = await prisma.provider.findMany({
+    where: { role },
+    orderBy,
+    include: {
+      handler: true, // Include the related handler data
+    },
+  });
+
+  const filteredProviders = searchParams.query
+    ? providers.filter((provider) => {
+        const query = searchParams.query.toLowerCase();
+        const firstName = provider.firstName.toLowerCase();
+        const lastName = provider.lastName.toLowerCase();
+        const fullName = `${firstName} ${lastName}`;
+
+        return (
+          firstName.includes(query) ||
+          lastName.includes(query) ||
+          fullName.includes(query)
+        );
+      })
+    : providers;
+
   return (
-    <>
-      <Table.Root>
-        <Table.Header>
-          <Table.Row>
-            {columns.map((column) => (
-              <Table.ColumnHeaderCell
-                key={column.value}
-                className={column.className}
-              >
-                <NextLink
-                  href={{
-                    query: { ...searchParams, orderBy: column.value },
-                  }}
-                >
-                  {column.label}
-                </NextLink>
-                {column.value === searchParams.orderBy && (
-                  <ArrowUpIcon className="inline" />
-                )}
-              </Table.ColumnHeaderCell>
-            ))}
-          </Table.Row>
-        </Table.Header>
-      </Table.Root>
-    </>
+    <Flex direction="column" gap="3">
+      <DistributionSearchBar />
+      <DistributionTable
+        providers={filteredProviders}
+        searchParams={searchParams}
+      />
+    </Flex>
   );
 };
+
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Brain Health - Providers",
+};
 export default DistributionPage;
-
-const columns = [
-  { label: "Name", value: "firstName" },
-  { label: "Handler", value: "handler", className: "hidden md:table-cell" },
-  { label: "Scheduler", value: "scheduler", className: "hidden md:table-cell" },
-  {
-    label: "Transcriber",
-    value: "Transcriber",
-    className: "hidden md:table-cell",
-  },
-];
-
-export const columnNames = columns.map((column) => column.value);

@@ -83,7 +83,7 @@ const ProviderTable = ({ searchParams, providers }: Props) => {
 
 export default ProviderTable;
 
-function capitalizeFirstLetter(string: string) {
+export function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
