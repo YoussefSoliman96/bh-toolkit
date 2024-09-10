@@ -66,7 +66,7 @@ const AuthStatus = () => {
   if (status === "loading") return null;
   if (status === "unauthenticated")
     return (
-      <Link className="nav-link" href="/api/auth/signin">
+      <Link className="nav-link px-5 py-4" href="/api/auth/signin">
         Login
       </Link>
     );

@@ -30,7 +30,7 @@ interface Props {
 const DistributionTable = async ({ searchParams, providers }: Props) => {
   return (
     <>
-      <Table.Root>
+      <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
             {columns.map((column) => (
