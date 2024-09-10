@@ -71,7 +71,10 @@ const ProviderTable = ({ searchParams, providers }: Props) => {
             <Table.Cell className="hidden md:table-cell">
               <Flex gap="2">
                 <ProviderLink doxyLink={provider.link} size="2" />
-                <NextLink href={`/confirmation?providerId=${provider.id}`}>
+                <NextLink
+                  href={`/confirmation?providerId=${provider.id}`}
+                  target="_blank"
+                >
                   <ExternalLinkIcon className="mt-1" />
                 </NextLink>
               </Flex>
