@@ -1,6 +1,13 @@
 "use client";
 
-import { Box, DropdownMenu, Flex, IconButton } from "@radix-ui/themes";
+import {
+  Badge,
+  Box,
+  Button,
+  DropdownMenu,
+  Flex,
+  IconButton,
+} from "@radix-ui/themes";
 import classnames from "classnames";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -15,9 +22,11 @@ const NavBar = () => {
           <Link href="/">
             <Image src="/logo.png" alt="Logo" width="200" height="60"></Image>
           </Link>
-          <Link href="" className="items-center py-4">
-            Admin Panel
-          </Link>
+          <Box className="items-center py-3">
+            <Button variant="soft">
+              <Link href="/admin">Admin Panel</Link>
+            </Button>
+          </Box>
           <Flex>
             <AuthStatus />
           </Flex>
