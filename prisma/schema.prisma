@@ -76,6 +76,12 @@ model Transcriber {
   provider Provider[]
 }
 
+model Office {
+  id      Int    @id @default(autoincrement())
+  name    String
+  address String
+}
+
 enum Title {
   NP
   MD
