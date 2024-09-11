@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Badge,
-  Box,
-  Button,
-  DropdownMenu,
-  Flex,
-  IconButton,
-} from "@radix-ui/themes";
+import { Box, Button, DropdownMenu, Flex, IconButton } from "@radix-ui/themes";
 import classnames from "classnames";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -44,27 +37,45 @@ const NavBar = () => {
 const NavLinks = () => {
   const currentPath = usePathname();
 
-  const links = [
+  const leftLinks = [
     { label: "Dashboard", href: "/" },
     { label: "Providers", href: "/providers/list" },
     { label: "Handlers", href: "/distribution" },
     { label: "Confirmation", href: "/confirmation" },
   ];
+  const rightLinks = [{ label: "About", href: "/about" }];
   return (
-    <ul className="flex space-x-6  px-5 py-3">
-      {links.map((link) => (
-        <li key={link.label}>
-          <Link
-            className={classnames({
-              "nav-link": true,
-              "!text-zinc-900": link.href === currentPath,
-            })}
-            href={link.href}
-          >
-            {link.label}
-          </Link>
-        </li>
-      ))}
+    <ul className="flex items-center px-5 py-3 w-full">
+      <div className="flex space-x-6">
+        {leftLinks.map((link) => (
+          <li key={link.label}>
+            <Link
+              className={classnames({
+                "nav-link": true,
+                "!text-zinc-900": link.href === currentPath,
+              })}
+              href={link.href}
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </div>
+      <div className="ml-auto">
+        {rightLinks.map((link) => (
+          <li key={link.label}>
+            <Link
+              className={classnames({
+                "nav-link": true,
+                "!text-zinc-900": link.href === currentPath,
+              })}
+              href={link.href}
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </div>
     </ul>
   );
 };
