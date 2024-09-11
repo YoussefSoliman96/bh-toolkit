@@ -15,7 +15,12 @@ const NavBar = () => {
           <Link href="/">
             <Image src="/logo.png" alt="Logo" width="200" height="60"></Image>
           </Link>
-          <AuthStatus />
+          <Link href="" className="items-center py-4">
+            Admin Panel
+          </Link>
+          <Flex>
+            <AuthStatus />
+          </Flex>
         </Flex>
       </nav>
       <nav className="border-b mb-5">
