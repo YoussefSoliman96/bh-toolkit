@@ -43,7 +43,10 @@ const NavLinks = () => {
     { label: "Handlers", href: "/distribution" },
     { label: "Confirmation", href: "/confirmation" },
   ];
-  const rightLinks = [{ label: "About", href: "/about" }];
+  const rightLinks = [
+    { label: "Scripts", href: "/scripts" },
+    { label: "About", href: "/about" },
+  ];
   return (
     <ul className="flex items-center px-5 py-3 w-full">
       <div className="flex space-x-6">
@@ -61,7 +64,7 @@ const NavLinks = () => {
           </li>
         ))}
       </div>
-      <div className="ml-auto">
+      <div className="ml-auto flex space-x-6">
         {rightLinks.map((link) => (
           <li key={link.label}>
             <Link
