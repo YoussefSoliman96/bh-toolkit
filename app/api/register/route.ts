@@ -22,6 +22,7 @@ export async function POST(request: NextRequest) {
       title: body.title,
       gender: body.gender,
       role: body.role,
+      email: body.email,
     },
   });
 

@@ -36,6 +36,8 @@ export const authOptions: NextAuthOptions = {
             gender: user.gender,
             title: user.title,
             email: user.email || undefined,
+            nickname: user.nickname,
+            role: user.role,
           };
         } else {
           return null;
@@ -56,6 +58,7 @@ export const authOptions: NextAuthOptions = {
         token.gender = user.gender;
         token.title = user.title;
         token.email = user.email;
+        (token.nickname = user.nickname), (token.role = user.role);
       }
       return token;
     },
@@ -69,6 +72,8 @@ export const authOptions: NextAuthOptions = {
           gender: token.gender as string,
           title: token.title as string,
           email: token.email as string,
+          nickname: token.nickname as string,
+          role: token.role as string,
         };
       }
       return session;

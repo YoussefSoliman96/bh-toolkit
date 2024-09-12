@@ -13,6 +13,7 @@ const ProviderTitleEnum = z.enum([
 ]);
 const GenderEnum = z.enum(["MALE", "FEMALE"]);
 const RoleEnum = z.enum(["PSYCHIATRIST", "THERAPIST", "RESIDENCY"]);
+const UserRoleEnum = z.enum(["USER", "ADMIN"]);
 
 export const providerSchema = z.object({
   firstName: z.string().min(1, { message: "First name is required" }),
@@ -32,9 +33,11 @@ export const userSchema = z.object({
   firstName: z.string().min(1, { message: "First name is required" }),
   lastName: z.string().min(1, { message: "Last name is required" }),
   username: z.string().min(1, { message: "username is required" }),
+  nickname: z.string().min(1, { message: "nickname is required" }),
   password: z.string().min(1, { message: "username is required" }).max(12),
   title: z.string().min(1, { message: "Title is required" }),
   gender: GenderEnum,
+  role: UserRoleEnum,
 });
 
 // Schema for validating login request

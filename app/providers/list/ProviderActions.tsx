@@ -7,6 +7,7 @@ import { authOptions } from "@/app/auth/authOptions";
 
 const ProviderActions = async () => {
   const session = await getServerSession(authOptions);
+  console.log(session?.user);
   return (
     <Flex justify="between">
       <ProviderFilter />
