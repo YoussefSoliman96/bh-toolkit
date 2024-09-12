@@ -142,7 +142,7 @@ model User {
   username      String    @unique
   password      String
   title         String
-  role          String    @default("")
+  role          UserRole  @default(USER)
   gender        Gender
   language      String    @default("English")
   email         String?   @unique
@@ -154,6 +154,11 @@ model User {
   sessions      Session[]
 
   @@map("users")
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
 
 model VerificationToken {
