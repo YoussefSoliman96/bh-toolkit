@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { Skeleton } from "@/app/components";
 
 const NavBar = () => {
   return (
@@ -91,7 +92,7 @@ const AuthStatus = () => {
     router.push(url);
   };
 
-  if (status === "loading") return null;
+  if (status === "loading") return <Skeleton width="3rem" className="mt-5" />;
   if (status === "unauthenticated")
     return (
       <Link className="nav-link px-5 py-4" href="/api/auth/signin">
