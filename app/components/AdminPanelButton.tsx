@@ -7,7 +7,7 @@ const AdminPanelButton = () => {
   const { data: session, status } = useSession();
   return (
     <Box className="items-center py-3">
-      {session && (
+      {session && session.user.role === "ADMIN" && (
         <Button variant="soft">
           <Link href="/admin">Admin Panel</Link>
         </Button>

@@ -26,7 +26,7 @@ const ProviderDetailPage = async ({ params }: Props) => {
       <Box className="md:col-span-4">
         <ProviderDetails provider={provider} />
       </Box>
-      {session && (
+      {session && session.user.role === "ADMIN" && (
         <Box>
           <Flex direction="column" gap="4">
             <EditProviderButton providerId={provider.id} />

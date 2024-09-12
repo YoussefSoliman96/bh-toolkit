@@ -7,11 +7,10 @@ import { authOptions } from "@/app/auth/authOptions";
 
 const ProviderActions = async () => {
   const session = await getServerSession(authOptions);
-  console.log(session?.user);
   return (
     <Flex justify="between">
       <ProviderFilter />
-      {session && (
+      {session && session.user.role === "ADMIN" && (
         <Button>
           <Link href="/providers/new">New provider</Link>
         </Button>
