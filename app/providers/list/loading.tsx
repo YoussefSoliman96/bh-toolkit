@@ -9,10 +9,13 @@ const LoadingProvidersPage = () => {
         <Table.Row>
           <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell className="hidden md:table-cell">
+            Role
+          </Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell className="hidden md:table-cell">
             Gender
           </Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell className="hidden md:table-cell">
-            Initial
+            Evaluation
           </Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell className="hidden md:table-cell">
             Follow Up
@@ -24,7 +27,7 @@ const LoadingProvidersPage = () => {
             Age Range
           </Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell className="hidden md:table-cell">
-            Working Hours
+            Link
           </Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
@@ -33,6 +36,12 @@ const LoadingProvidersPage = () => {
         {providers.map((provider) => (
           <Table.Row key={provider}>
             <Table.Cell>
+              <Skeleton />
+            </Table.Cell>
+            <Table.Cell className="hidden md:table-cell">
+              <Skeleton />
+            </Table.Cell>
+            <Table.Cell className="hidden md:table-cell">
               <Skeleton />
             </Table.Cell>
             <Table.Cell className="hidden md:table-cell">

@@ -82,6 +82,12 @@ model Office {
   address String
 }
 
+model Reminder {
+  id          Int    @id @default(autoincrement())
+  description String
+  creator     String
+}
+
 enum Title {
   NP
   MD
