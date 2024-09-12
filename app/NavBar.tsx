@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Skeleton } from "@/app/components";
+import AdminPanelButton from "./components/AdminPanelButton";
 
 const NavBar = () => {
   return (
@@ -16,11 +17,7 @@ const NavBar = () => {
           <Link href="/">
             <Image src="/logo.png" alt="Logo" width="200" height="60"></Image>
           </Link>
-          <Box className="items-center py-3">
-            <Button variant="soft">
-              <Link href="/admin">Admin Panel</Link>
-            </Button>
-          </Box>
+          <AdminPanelButton />
           <Flex>
             <AuthStatus />
           </Flex>
