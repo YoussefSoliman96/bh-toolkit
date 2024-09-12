@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { number, optional, z } from "zod";
 
 const ProviderTitleEnum = z.enum([
   "NP",
@@ -33,6 +33,9 @@ export const providerSchema = z.object({
   ageRange: z.string().min(1, { message: "Age range is required" }),
   workingHours: z.string().min(1, { message: "Working hours are required" }),
   link: z.string().min(1).max(20),
+  handlerId: z.number().optional(),
+  schedulerId: z.number().optional(),
+  transcriberId: z.number().optional(),
 });
 
 export const userSchema = z.object({
