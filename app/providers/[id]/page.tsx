@@ -5,6 +5,8 @@ import { cache } from "react";
 import DeleteProviderButton from "./DeleteProviderButton";
 import EditProviderButton from "./EditProviderButton";
 import ProviderDetails from "./ProviderDetails";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/auth/authOptions";
 
 interface Props {
   params: { id: string };
@@ -15,6 +17,7 @@ const fetchProvider = cache((providerId: number) =>
 );
 
 const ProviderDetailPage = async ({ params }: Props) => {
+  const session = await getServerSession(authOptions);
   const provider = await fetchProvider(parseInt(params.id));
 
   if (!provider) notFound();
@@ -23,12 +26,14 @@ const ProviderDetailPage = async ({ params }: Props) => {
       <Box className="md:col-span-4">
         <ProviderDetails provider={provider} />
       </Box>
-      <Box>
-        <Flex direction="column" gap="4">
-          <EditProviderButton providerId={provider.id} />
-          <DeleteProviderButton providerId={provider.id} />
-        </Flex>
-      </Box>
+      {session && (
+        <Box>
+          <Flex direction="column" gap="4">
+            <EditProviderButton providerId={provider.id} />
+            <DeleteProviderButton providerId={provider.id} />
+          </Flex>
+        </Box>
+      )}
     </Grid>
   );
 };
