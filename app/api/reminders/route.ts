@@ -19,7 +19,7 @@ export async function POST(request: NextResponse) {
       { error: validation.error.errors },
       { status: 400 }
     );
-  const newReminder = prisma.reminder.create({
+  const newReminder = await prisma.reminder.create({
     data: {
       description: body.description,
       creator: body.creator,
