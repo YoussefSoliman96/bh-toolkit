@@ -142,6 +142,7 @@ model User {
   username      String    @unique
   password      String
   title         String
+  role          String    @default("")
   gender        Gender
   language      String    @default("English")
   email         String?   @unique
