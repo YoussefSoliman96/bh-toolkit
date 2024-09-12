@@ -7,7 +7,7 @@ import TranscribersTable from "./TranscribersTable";
 
 const AdminPanel = async () => {
   return (
-    <Flex gap="9">
+    <Flex gap="3">
       <HandlersTable />
       <SchedulersTable />
       <TranscribersTable />
