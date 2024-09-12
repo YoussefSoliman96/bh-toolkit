@@ -41,6 +41,7 @@ export async function PATCH(
       handlerId: Number(body.handlerId),
       schedulerId: Number(body.schedulerId),
       transcriberId: Number(body.transcriberId),
+      link: body.link,
     },
   });
   return NextResponse.json(updatedProvider);

@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
       handlerId: body.handlerId,
       schedulerId: body.schedulerId,
       transcriberId: body.transcriberId,
+      link: body.link,
     },
   });
 
