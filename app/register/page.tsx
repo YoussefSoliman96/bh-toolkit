@@ -10,10 +10,12 @@ export default function Register() {
     firstName: "",
     lastName: "",
     username: "",
+    nickname: "",
     password: "",
     title: "",
     gender: "MALE",
     email: "",
+    role: "USER",
   });
 
   const handleChange = (
@@ -105,6 +107,23 @@ export default function Register() {
           <div>
             <Label.Root
               className="block text-sm font-medium text-gray-700"
+              htmlFor="nickname"
+            >
+              Nickname
+            </Label.Root>
+            <input
+              id="nickname"
+              name="nickname"
+              type="text"
+              value={formData.nickname}
+              onChange={handleChange}
+              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              required
+            />
+          </div>
+          <div>
+            <Label.Root
+              className="block text-sm font-medium text-gray-700"
               htmlFor="email"
             >
               Email
@@ -175,6 +194,24 @@ export default function Register() {
             >
               <option value="MALE">Male</option>
               <option value="FEMALE">Female</option>
+            </select>
+          </div>
+          <div>
+            <Label.Root
+              className="block text-sm font-medium text-gray-700"
+              htmlFor="gender"
+            >
+              Role
+            </Label.Root>
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value="USER">User</option>
+              <option value="ADMIN">Admin</option>
             </select>
           </div>
 

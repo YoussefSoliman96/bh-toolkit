@@ -140,6 +140,7 @@ model User {
   firstName     String
   lastName      String
   username      String    @unique
+  nickname      String
   password      String
   title         String
   role          UserRole  @default(USER)

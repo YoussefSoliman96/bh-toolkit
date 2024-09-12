@@ -17,9 +17,11 @@ export async function POST(request: NextRequest) {
       firstName: body.firstName,
       lastName: body.lastName,
       username: body.username,
+      nickname: body.nickname,
       password: hashedPassword,
       title: body.title,
       gender: body.gender,
+      role: body.role,
     },
   });
 
