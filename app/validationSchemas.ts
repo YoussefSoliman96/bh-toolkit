@@ -1,4 +1,4 @@
-import { object, string, z } from "zod";
+import { z } from "zod";
 
 const ProviderTitleEnum = z.enum([
   "NP",
@@ -16,8 +16,14 @@ const RoleEnum = z.enum(["PSYCHIATRIST", "THERAPIST", "RESIDENCY"]);
 const UserRoleEnum = z.enum(["USER", "ADMIN"]);
 
 export const providerSchema = z.object({
-  firstName: z.string().min(1, { message: "First name is required" }),
-  lastName: z.string().min(1, { message: "Last name is required" }),
+  firstName: z
+    .string()
+    .min(1, { message: "First name is required" })
+    .max(20, { message: "Name can't exceed 20 characters" }),
+  lastName: z
+    .string()
+    .min(1, { message: "Last name is required" })
+    .max(20, { message: "Name can't exceed 20 characters" }),
   title: ProviderTitleEnum,
   role: RoleEnum,
   gender: GenderEnum,
@@ -26,18 +32,34 @@ export const providerSchema = z.object({
   followUp: z.string().min(1).max(60),
   ageRange: z.string().min(1, { message: "Age range is required" }),
   workingHours: z.string().min(1, { message: "Working hours are required" }),
-  link: z.string().min(1).max(100),
+  link: z.string().min(1).max(20),
 });
 
 export const userSchema = z.object({
-  firstName: z.string().min(1, { message: "First name is required" }),
-  lastName: z.string().min(1, { message: "Last name is required" }),
-  username: z.string().min(1, { message: "username is required" }),
-  nickname: z.string().min(1, { message: "nickname is required" }),
+  firstName: z
+    .string()
+    .min(1, { message: "First name is required" })
+    .max(20, { message: "Name can't exceed 20 characters" }),
+  lastName: z
+    .string()
+    .min(1, { message: "Last name is required" })
+    .max(20, { message: "Name can't exceed 20 characters" }),
+  username: z
+    .string()
+    .min(1, { message: "username is required" })
+    .max(20, { message: "Name can't exceed 20 characters" }),
+  nickname: z
+    .string()
+    .min(1, { message: "nickname is required" })
+    .max(20, { message: "Name can't exceed 20 characters" }),
   password: z.string().min(1, { message: "username is required" }).max(12),
   title: z.string().min(1, { message: "Title is required" }),
   gender: GenderEnum,
   role: UserRoleEnum,
+});
+
+export const handlerSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
 });
 
 // Schema for validating login request
