@@ -26,6 +26,9 @@ export async function POST(request: NextRequest) {
       ageRange: body.ageRange,
       workingHours: body.workingHours,
       role: body.role,
+      handlerId: body.handlerId,
+      schedulerId: body.schedulerId,
+      transcriberId: body.transcriberId,
     },
   });
 

@@ -38,6 +38,9 @@ export async function PATCH(
       followUp: body.followUp,
       ageRange: body.ageRange,
       workingHours: body.workingHours,
+      handlerId: Number(body.handlerId),
+      schedulerId: Number(body.schedulerId),
+      transcriberId: Number(body.transcriberId),
     },
   });
   return NextResponse.json(updatedProvider);

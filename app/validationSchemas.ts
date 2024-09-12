@@ -32,7 +32,7 @@ export const providerSchema = z.object({
   followUp: z.string().min(1).max(60),
   ageRange: z.string().min(1, { message: "Age range is required" }),
   workingHours: z.string().min(1, { message: "Working hours are required" }),
-  link: z.string().min(1).max(20),
+  link: z.string().min(1).max(50),
   handlerId: z.number().optional(),
   schedulerId: z.number().optional(),
   transcriberId: z.number().optional(),
