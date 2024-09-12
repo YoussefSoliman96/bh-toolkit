@@ -13,26 +13,26 @@ const ScriptsPage = () => {
     {
       title: "Consents and Medical Records (Free)",
       message: `Hi! This is ${session?.user.firstName} reaching out to you from Brain Health USA 
-Please fill out this form if you agree to give us consent to share your medical records and information. Thank you!`,
-      link: "https://brainhealthusa.com/authorization-to-release-information/",
+Please fill out this form if you agree to give us consent to share your medical records and information. Thank you! 
+"https://brainhealthusa.com/authorization-to-release-information/"`,
     },
     {
       title: "Consents and Medical Records (Paid)",
       message: `Hi! This is ${session?.user.firstName} reaching out to you from Brain Health USA 
-Please fill out this form to request your medical records. Thank you!`,
-      link: "https://brainhealthusa.com/medical-records/",
+Please fill out this form to request your medical records. Thank you! 
+"https://brainhealthusa.com/medical-records/"`,
     },
     {
       title: "New Patients",
       message: `Hi! This is ${session?.user.firstName} reaching out to you from Brain Health USA
-To continue with the enrollment process, kindly fill out the new patient intake form (for adults) by clicking the following link:`,
-      link: "https://brainhealthusa.com/intake",
+To continue with the enrollment process, kindly fill out the new patient intake form (for adults) by clicking the following link: 
+"https://brainhealthusa.com/intake"`,
     },
     {
       title: "Minor Intake Form (up to 17)",
       message: `Hi! This is ${session?.user.firstName} reaching out to you from Brain Health USA
-To continue with the enrollment process, kindly fill out the new patient intake form (minors) by clicking the following link:`,
-      link: "https://brainhealthusa.com/minor-intake",
+To continue with the enrollment process, kindly fill out the new patient intake form (minors) by clicking the following link:
+"https://brainhealthusa.com/minor-intake"`,
     },
   ];
 
@@ -61,16 +61,7 @@ To continue with the enrollment process, kindly fill out the new patient intake 
             <p className="text-gray-700 mb-2 whitespace-pre-wrap">
               {script.message}
             </p>
-            {script.link && (
-              <Link
-                href={script.link}
-                passHref
-                target="_blank"
-                className="text-blue-600 underline"
-              >
-                {script.link}
-              </Link>
-            )}
+
             {/* Copy button */}
             <Flex mt="4" gap="3">
               <Button
