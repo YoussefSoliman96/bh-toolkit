@@ -10,7 +10,13 @@ interface ReminderForm {
   description: string;
 }
 
-const AddReminderButton = () => {
+interface AddReminderButtonProps {
+  onReminderAdded: () => void;
+}
+
+const AddReminderButton: React.FC<AddReminderButtonProps> = ({
+  onReminderAdded,
+}) => {
   const { register, handleSubmit, reset } = useForm<ReminderForm>();
   const { data: session } = useSession();
 
@@ -26,6 +32,7 @@ const AddReminderButton = () => {
       });
       // Close the dialog and reset form fields after successful submission
       reset();
+      onReminderAdded(); // Notify parent component
     } catch (error) {
       console.error("Failed to add reminder:", error);
     }
@@ -34,7 +41,9 @@ const AddReminderButton = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button>Add Reminder</Button>
+        <Button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+          Add Reminder
+        </Button>
       </Dialog.Trigger>
 
       <Dialog.Content>
