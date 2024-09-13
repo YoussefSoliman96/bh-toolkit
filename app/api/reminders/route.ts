@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(reminders, { status: 200 });
 }
 
-export async function POST(request: NextResponse) {
+export async function POST(request: NextRequest) {
   const body = await request.json();
   const validation = reminderSchema.safeParse(body);
   if (!validation.success)
