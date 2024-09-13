@@ -93,6 +93,7 @@ const ProviderSelector = ({ providers }: Props) => {
               : null
           }
           placeholder="Choose provider"
+          className="text-black"
         />
 
         <div className="mt-4">

@@ -55,7 +55,7 @@ To continue with the enrollment process, kindly fill out the new patient intake 
         {scripts.map((script, index) => (
           <div
             key={index}
-            className="bg-white shadow-md rounded-lg p-4 border border-gray-200"
+            className="bg-white shadow-md rounded-lg p-4 border border-gray-200 text-black"
           >
             <h3 className="text-xl font-semibold mb-3">{script.title}</h3>
             <p className="text-gray-700 mb-2 whitespace-pre-wrap">

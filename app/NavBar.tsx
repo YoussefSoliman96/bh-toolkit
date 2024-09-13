@@ -1,6 +1,13 @@
 "use client";
 
-import { Box, Button, DropdownMenu, Flex, IconButton } from "@radix-ui/themes";
+import {
+  Box,
+  Button,
+  DropdownMenu,
+  Flex,
+  IconButton,
+  useThemeContext,
+} from "@radix-ui/themes";
 import classnames from "classnames";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -38,6 +45,7 @@ const NavBar = () => {
 
 const NavLinks = () => {
   const currentPath = usePathname();
+  const { appearance } = useThemeContext();
 
   const leftLinks = [
     { label: "Dashboard", href: "/" },
@@ -57,7 +65,10 @@ const NavLinks = () => {
             <Link
               className={classnames({
                 "nav-link": true,
-                "!text-zinc-900": link.href === currentPath,
+                "!text-zinc-900":
+                  link.href === currentPath && appearance === "light",
+                "!text-zinc-200":
+                  link.href === currentPath && appearance === "dark",
               })}
               href={link.href}
             >

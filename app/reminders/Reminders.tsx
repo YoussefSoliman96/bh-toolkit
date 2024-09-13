@@ -46,15 +46,18 @@ const Reminders = () => {
             style={{ objectFit: "cover" }}
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
             className="absolute inset-0"
-            priority // Add priority here
+            priority
           />
+          {/* Add overlay */}
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+
           <div className="absolute inset-0 flex flex-col justify-between p-4">
             <div className="flex-grow flex items-center justify-center">
-              <p className="text-lg p-3 rounded-md w-3/4 md:w-1/2 text-center">
+              <p className="text-lg text-white p-3 rounded-md w-3/4 md:w-1/2 text-center">
                 {reminder.description}
               </p>
             </div>
-            <div className="text-center p-2 rounded-md">
+            <div className="text-center p-2 rounded-md text-white">
               <p className="text-sm opacity-80">{reminder.creator}</p>
               <p className="text-xs opacity-60">
                 {new Date(reminder.createdAt).toLocaleDateString()}
