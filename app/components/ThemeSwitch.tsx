@@ -6,12 +6,12 @@ const ThemeSwitch = () => {
   const toggleTheme = () => {
     const currentTheme = document.documentElement.getAttribute("data-theme");
 
-    if (currentTheme === "light") {
-      onAppearanceChange("dark");
-      document.documentElement.setAttribute("data-theme", "dark");
-    } else {
+    if (currentTheme === "dark") {
       onAppearanceChange("light");
       document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      onAppearanceChange("dark");
+      document.documentElement.setAttribute("data-theme", "dark");
     }
   };
 
