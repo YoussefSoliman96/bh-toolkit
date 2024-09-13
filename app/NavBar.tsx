@@ -8,6 +8,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Skeleton } from "@/app/components";
 import AdminPanelButton from "./components/AdminPanelButton";
+import ThemeSwitch from "./components/ThemeSwitch";
 
 const NavBar = () => {
   return (
@@ -19,6 +20,9 @@ const NavBar = () => {
           </Link>
           <AdminPanelButton />
           <Flex>
+            <Box className="py-5">
+              <ThemeSwitch />
+            </Box>
             <AuthStatus />
           </Flex>
         </Flex>
