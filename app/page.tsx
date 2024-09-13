@@ -1,7 +1,5 @@
-import { Metadata } from "next";
-import Reminders from "./reminders/Reminders";
-import AddReminderButton from "./reminders/AddReminderButton";
 import { Text } from "@radix-ui/themes";
+import { Metadata } from "next";
 import ReminderPage from "./reminders/page";
 
 export default function Home() {

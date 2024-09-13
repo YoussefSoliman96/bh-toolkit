@@ -51,6 +51,7 @@ const NavLinks = () => {
     { label: "Dashboard", href: "/" },
     { label: "Providers", href: "/providers/list" },
     { label: "Handlers", href: "/distribution" },
+    { label: "Restrictions", href: "/restrictions" },
     { label: "Confirmation", href: "/confirmation" },
   ];
   const rightLinks = [
