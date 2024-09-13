@@ -31,7 +31,7 @@ const Reminders = async () => {
           />
           <div className="absolute inset-0 flex flex-col justify-between p-4">
             <div className="flex-grow flex items-center justify-center">
-              <p className="text-lg font-semibold bg-opacity-60 p-3 rounded-md w-3/4 md:w-1/2 text-center">
+              <p className="text-lg bg-opacity-60 p-3 rounded-md w-3/4 md:w-1/2 text-center">
                 {reminder.description}
               </p>
             </div>
