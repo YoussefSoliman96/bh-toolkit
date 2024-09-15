@@ -151,7 +151,7 @@ const columns = [
   { label: "ADHD", value: "adhd", className: "hidden md:table-cell" },
 
   {
-    label: "schizophrenia & Bipolar",
+    label: "Schizophrenia & Bipolar",
     value: "schizophreniaBipolar",
     className: "hidden md:table-cell",
   },
