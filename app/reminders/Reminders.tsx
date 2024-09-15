@@ -1,36 +1,36 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import src from "react-select";
 import style from "styled-jsx/style";
+import prisma from "@/prisma/client";
 
-const Reminders = () => {
-  const [reminders, setReminders] = useState<any[]>([]);
-  const backgroundImages = [
-    "/reminder1.jpg",
-    "/reminder2.jpg",
-    "/reminder3.jpg",
-  ];
+const Reminders = async () => {
+  const reminders = await prisma.reminder.findMany();
+  // const [reminders, setReminders] = useState<any[]>([]);
+  // const backgroundImages = [
+  //   "/reminder1.jpg",
+  //   "/reminder2.jpg",
+  //   "/reminder3.jpg",
+  // ];
 
-  const getRandomBackground = () => {
-    const randomIndex = Math.floor(Math.random() * backgroundImages.length);
-    return backgroundImages[randomIndex];
-  };
+  // const getRandomBackground = () => {
+  //   const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+  //   return backgroundImages[randomIndex];
+  // };
 
-  const fetchReminders = async () => {
-    try {
-      const response = await axios.get("/api/reminders");
-      setReminders(response.data);
-    } catch (error) {
-      console.error("Failed to fetch reminders:", error);
-    }
-  };
+  // const fetchReminders = async () => {
+  //   try {
+  //     const response = await axios.get("/api/reminders");
+  //     setReminders(response.data);
+  //   } catch (error) {
+  //     console.error("Failed to fetch reminders:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchReminders();
-  }, []);
+  // useEffect(() => {
+  //   fetchReminders();
+  // }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
@@ -40,7 +40,7 @@ const Reminders = () => {
           className="relative w-full h-64 rounded-lg overflow-hidden"
         >
           <Image
-            src={getRandomBackground()}
+            src="/reminder1.jpg"
             alt="Reminder"
             fill
             style={{ objectFit: "cover" }}
@@ -48,7 +48,7 @@ const Reminders = () => {
             className="absolute inset-0"
             priority
           />
-          {/* Add overlay */}
+
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
           <div className="absolute inset-0 flex flex-col justify-between p-4">

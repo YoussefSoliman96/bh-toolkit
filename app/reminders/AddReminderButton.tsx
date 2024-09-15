@@ -5,6 +5,7 @@ import { Dialog, Button, Flex, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 interface ReminderForm {
   description: string;
@@ -14,10 +15,9 @@ interface AddReminderButtonProps {
   onReminderAdded: () => void;
 }
 
-const AddReminderButton: React.FC<AddReminderButtonProps> = ({
-  onReminderAdded,
-}) => {
+const AddReminderButton: React.FC = () => {
   const { register, handleSubmit, reset } = useForm<ReminderForm>();
+  const router = useRouter();
   const { data: session } = useSession();
 
   const onSubmit: SubmitHandler<ReminderForm> = async (data) => {
@@ -30,9 +30,9 @@ const AddReminderButton: React.FC<AddReminderButtonProps> = ({
         ...data,
         creator: creatorName,
       });
-      // Close the dialog and reset form fields after successful submission
+
       reset();
-      onReminderAdded(); // Notify parent component
+      router.push("/");
     } catch (error) {
       console.error("Failed to add reminder:", error);
     }
