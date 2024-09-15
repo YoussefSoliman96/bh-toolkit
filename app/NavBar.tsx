@@ -65,7 +65,8 @@ const NavLinks = () => {
           <li key={link.label}>
             <Link
               className={classnames({
-                "nav-link": true,
+                "nav-link": true && appearance === "light",
+                "dark-nav-link": true && appearance === "dark",
                 "!text-zinc-900":
                   link.href === currentPath && appearance === "light",
                 "!text-zinc-200":
@@ -83,8 +84,12 @@ const NavLinks = () => {
           <li key={link.label}>
             <Link
               className={classnames({
-                "nav-link": true,
-                "!text-zinc-900": link.href === currentPath,
+                "nav-link": true && appearance === "light",
+                "dark-nav-link": true && appearance === "dark",
+                "!text-zinc-900":
+                  link.href === currentPath && appearance === "light",
+                "!text-zinc-200":
+                  link.href === currentPath && appearance === "dark",
               })}
               href={link.href}
             >
