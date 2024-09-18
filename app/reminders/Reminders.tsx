@@ -1,9 +1,5 @@
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import axios from "axios";
-import src from "react-select";
-import style from "styled-jsx/style";
 import prisma from "@/prisma/client";
+import Image from "next/image";
 
 const Reminders = async () => {
   const reminders = await prisma.reminder.findMany();
