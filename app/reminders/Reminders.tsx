@@ -1,8 +1,12 @@
 import prisma from "@/prisma/client";
+import { Reminder } from "@prisma/client";
 import Image from "next/image";
 
-const Reminders = async () => {
-  const reminders = await prisma.reminder.findMany();
+interface Props {
+  reminders: Reminder[];
+}
+
+const Reminders = ({ reminders }: Props) => {
   // const [reminders, setReminders] = useState<any[]>([]);
   // const backgroundImages = [
   //   "/reminder1.jpg",

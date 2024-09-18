@@ -1,8 +1,10 @@
 import Reminders from "./Reminders";
 import AddReminderButton from "./AddReminderButton";
 import { useState } from "react";
+import prisma from "@/prisma/client";
 
-const ReminderPage = () => {
+const ReminderPage = async () => {
+  const reminders = await prisma.reminder.findMany();
   // const [refreshKey, setRefreshKey] = useState(0);
 
   // const handleReminderAdded = () => {
@@ -16,7 +18,7 @@ const ReminderPage = () => {
         <AddReminderButton />
       </div>
       <div className="w-full">
-        <Reminders />
+        <Reminders reminders={reminders} />
       </div>
     </div>
   );
