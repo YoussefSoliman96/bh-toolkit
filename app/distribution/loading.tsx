@@ -1,4 +1,4 @@
-import { Table } from "@radix-ui/themes";
+import { Flex, Table } from "@radix-ui/themes";
 import { Skeleton } from "../components";
 
 const LoadingProvidersPage = () => {
@@ -6,9 +6,9 @@ const LoadingProvidersPage = () => {
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ];
   return (
-    <>
-      <Skeleton className="max-w-10" />
-      <Skeleton />
+    <Flex direction="column" gap="3">
+      <Skeleton className="max-w-28 h-7" />
+      <Skeleton className="h-6" />
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
@@ -62,7 +62,7 @@ const LoadingProvidersPage = () => {
           ))}
         </Table.Body>
       </Table.Root>
-    </>
+    </Flex>
   );
 };
 
