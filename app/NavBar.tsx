@@ -16,6 +16,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Skeleton } from "@/app/components";
 import AdminPanelButton from "./components/AdminPanelButton";
 import ThemeSwitch from "./components/ThemeSwitch";
+import TicketsList from "./components/TicketsList";
 
 const NavBar = () => {
   return (
@@ -82,6 +83,7 @@ const NavLinks = () => {
         ))}
       </div>
       <div className="ml-auto flex space-x-6">
+        <TicketsList />
         {rightLinks.map((link) => (
           <li key={link.label}>
             <Link
