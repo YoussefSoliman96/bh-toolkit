@@ -1,13 +1,13 @@
-import prisma from "@/prisma/client";
-import { Reminder } from "@prisma/client";
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import axios from "axios";
+import src from "react-select";
+import style from "styled-jsx/style";
 
-interface Props {
-  reminders: Reminder[];
-}
-
-const Reminders = ({ reminders }: Props) => {
-  // const [reminders, setReminders] = useState<any[]>([]);
+const Reminders = () => {
+  const [reminders, setReminders] = useState<any[]>([]);
   // const backgroundImages = [
   //   "/reminder1.jpg",
   //   "/reminder2.jpg",
@@ -19,18 +19,18 @@ const Reminders = ({ reminders }: Props) => {
   //   return backgroundImages[randomIndex];
   // };
 
-  // const fetchReminders = async () => {
-  //   try {
-  //     const response = await axios.get("/api/reminders");
-  //     setReminders(response.data);
-  //   } catch (error) {
-  //     console.error("Failed to fetch reminders:", error);
-  //   }
-  // };
+  const fetchReminders = async () => {
+    try {
+      const response = await axios.get("/api/reminders");
+      setReminders(response.data);
+    } catch (error) {
+      console.error("Failed to fetch reminders:", error);
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchReminders();
-  // }, []);
+  useEffect(() => {
+    fetchReminders();
+  }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
@@ -48,7 +48,7 @@ const Reminders = ({ reminders }: Props) => {
             className="absolute inset-0"
             priority
           />
-
+          {/* Add overlay */}
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
           <div className="absolute inset-0 flex flex-col justify-between p-4">
